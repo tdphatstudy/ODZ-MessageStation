@@ -1,0 +1,4 @@
+.wrapper-profile {
+    display: flex;
+    flex-direction: column;
+}
