@@ -29,7 +29,7 @@
 }
 
 .input::placeholder{
-    color: white;
+    color: #7b7684;
 }
 .input:focus {
     outline: none !important;
@@ -44,8 +44,8 @@
     padding: 8px 15px;
     border-radius: 25px !important;
     border: none;
-    background-color: #C4C4C4;
-    color: white !important;
+    background-color: #f0f2f5;
+    color: #7b7684 !important;
 }
 .button {
     margin: 25px 0px;
