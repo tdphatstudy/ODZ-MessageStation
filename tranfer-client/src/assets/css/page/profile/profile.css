@@ -1,0 +1,14 @@
+.wrapper-profile {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+.body-profile {
+    display: flex;
+    flex-direction: row;
+    background-color: #f0f2f5;
+    min-height: 90vh;
+    margin-top: 10px;
+    justify-content: space-around;
+    align-items: flex-start;
+}

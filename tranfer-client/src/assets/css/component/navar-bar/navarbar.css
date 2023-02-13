@@ -1,0 +1,61 @@
+.wrapper-navar-bar {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 0px   15px 0px gray;
+}
+.logo-navar-bar {
+    font-size: 28px;
+    font-weight: 1000;
+    background-image: linear-gradient(90deg, blue, red);
+    color: transparent;
+    background-clip: text;
+    margin-left: 30px;
+}
+.search-bar{
+    width: 40%;
+    font-size: 18px !important;
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif !important;
+    padding: 5px 15px;
+    border-radius: 25px !important;
+    border: none;
+    background-color: #f0f2f5;
+    color: #7b7684 !important;
+
+}
+.search-bar::placeholder{
+    color: #7b7684;
+}
+.search-bar:focus {
+    outline: none;
+}
+.menu-wrapper-navar-bar {
+    margin-right: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.change-mode {
+    display: flex;
+    background-color: #f0f2f5;
+    height: 36px;
+    width: 36px;
+    border-radius: 360px;
+}
+.change-mode-icon {
+    margin: auto;
+}
+.profile-menu{
+    margin-left: 30px;
+    text-align: center;
+    border-radius: 360px;
+    background-size: contain;
+    background-image: url("../../../../text-data/user.png");
+    height: 36px;
+    width: 36px;
+
+}

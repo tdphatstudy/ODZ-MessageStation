@@ -1,0 +1,7 @@
+.display-panel-profile {
+    width: 65%;
+    min-height: 50vh;
+    background-color: white;
+    border: none;
+    border-radius: 25px;
+}

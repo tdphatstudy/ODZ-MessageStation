@@ -1,0 +1,108 @@
+.quick-menu-wrapper-profile {
+    width: 25%;
+    height: auto;
+    background-color: white;
+    border: none;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+}
+.avatar-quick-menu-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px lightgray solid;
+    padding-bottom: 10px;
+}
+.avatar-quick-menu {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+    background-image: url("../../../../text-data/user.png");
+    background-size: contain;
+    align-content: center;
+    
+}
+.name-quick-menu {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.user-id-quick-menu {
+    font-size: 1rem;
+    font-style: italic;
+    color: gray;
+}
+.status-quick-menu-wrapper-profile {
+    border-bottom: 1px lightgray solid;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.title-status-quick-menu-profile {
+    text-align: left;
+    margin: 10px 0px 5px 15px;
+    font-weight: bold;
+}
+
+.status-quick-menu-profile {
+    text-align: center;
+    margin: 0px 15px 10px 0px;
+    color: lightgreen;
+    font-size: 20px;
+}
+.menu-quick-menu-profile {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.option-quick-menu-profile {
+    margin: 10px 0px 10px 10px;
+    width: 90%;
+    font-size: 18px;
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+    
+}
+.option-quick-menu-profile:hover {
+    background-color: #f1f1f1;
+    border-radius: 25px;
+    padding-left: 10px;
+}
+.home-option-icon-quick-menu-profile {
+    background-image: url("../../../icon/home_24px_unselect.png");
+    margin-right: 10px;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    vertical-align: bottom;
+    display: inline-block;
+
+}
+.personal-option-icon-quick-menu-profile {
+    background-image: url("../../../icon/personal_24px_unselect.png");
+    margin-right: 10px;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+.contact-option-icon-quick-menu-profile {
+    background-image: url("../../../icon/contact_24px_unselect.png");
+    margin-right: 10px;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+.dark-mode-option-icon-quick-menu-profile {
+    background-image: url("../../../icon/light_24px.png");
+    margin-right: 10px;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+
