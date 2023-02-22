@@ -1,0 +1,113 @@
+.background-template-1-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+
+    
+}
+.image-background-template-1 {
+    background-image: url("../../../../../text-data/user.png");
+    border-radius: 20px;
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: auto;
+}
+.info-background-template-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 25px;
+
+}
+
+.hello-background-template-1 {
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: 100;
+}
+.name-background-template-1 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+}
+.role-background-template-1 {
+    font-size: 18px;
+    color: lightgray;
+    text-transform: uppercase;
+
+}
+.review-background-template-1 {
+    font-size: 18px;
+    width: 90%;
+    margin: 10px 0px 10px 0px;
+    font-weight: 400;
+}
+.birth-date-background-template-1-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+.birth-date-background-template-1-icon {
+    height: 24px;
+    width: 24px;
+    background-image: url(../../../../icon/birthday_24px.png);
+    margin-right: 15px;
+}
+.birth-date-background-template-1 {
+    font-size: 18px;
+    font-weight: 300;
+
+}
+.phone-background-template-1-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+.phone-background-template-1-icon {
+    height: 24px;
+    width: 24px;
+    background-image: url(../../../../icon/contact_24px_unselect.png);
+    margin-right: 15px;
+}
+.phone-background-template-1 {
+    font-size: 18px;
+    font-weight: 300;
+    
+
+}
+.mail-background-template-1-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+.mail-background-template-1-icon {
+    height: 24px;
+    width: 24px;
+    background-image: url(../../../../icon/email_24px.png);
+    margin-right: 15px;
+}
+.mail-background-template-1 {
+    font-size: 18px;
+    font-weight: 300;
+
+}
+.address-background-template-1-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+.address-background-template-1-icon {
+    height: 24px;
+    width: 24px;
+    background-image: url(../../../../icon/address_24px.png);
+    margin-right: 15px;
+}
+.address-background-template-1 {
+    font-size: 18px;
+    font-weight: 300;
+
+}
