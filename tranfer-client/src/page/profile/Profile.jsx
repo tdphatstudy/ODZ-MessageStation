@@ -1,7 +1,7 @@
 import "../../assets/css/page/profile/profile.css"
 import NavarBar from "../../component/navar-bar/NavarBar.jsx";
 import QuickMenu from "../../component/quick-menu/QuickMenu.jsx";
-import DisplayPanel from "../../component/display-panel/DisplayPanel";
+import HomePanel from "../../component/display-panel/home-panel/HomePanel.jsx";
 
 
 const Profile = () => {
@@ -10,7 +10,7 @@ const Profile = () => {
             <NavarBar />
             <div className="body-profile">
                 <QuickMenu />
-                <DisplayPanel />
+                <HomePanel />
             </div>
             
         </div>
