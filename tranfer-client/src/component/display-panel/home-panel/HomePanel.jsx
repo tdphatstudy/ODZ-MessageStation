@@ -1,5 +1,6 @@
 import "../../../assets/css/component/display-panel/home-panel/homepanel.css";
 import BackgroundTemplateOne from "./background-template/BackgroundTemplateOne";
+import TimelineNode from "../../timeline-node/TimelineNode";
 
 const HomePanel = () => {
     return (
@@ -24,6 +25,12 @@ const HomePanel = () => {
                 </div>
                 
             </div>
+            <TimelineNode />
+            <TimelineNode />
+            <TimelineNode />
+            <TimelineNode />
+            <TimelineNode />
+            <TimelineNode />    
             
         </div>
     );

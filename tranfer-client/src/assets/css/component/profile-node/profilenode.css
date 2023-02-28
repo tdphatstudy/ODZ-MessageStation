@@ -1,0 +1,32 @@
+.profile-node-wrapper {
+    height: auto;
+    width: 95%;
+    border: 1px solid #d3d3d3;
+    padding: 10px 0px;
+    border-radius: 25px;
+    display:  flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.profile-node-title {
+    font-weight: bold;
+    margin-left: 15px;
+}
+.profile-node-edit {
+    height: 24px;
+    width: 24px;
+    background-image: url("../../../icon/edit_32px.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 15px;
+}
+.profile-node-access {
+    height: 24px;
+    width: 24px;
+    background-image: url("../../../icon/globe_earth_32px.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 15px;
+}

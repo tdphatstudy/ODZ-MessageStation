@@ -83,6 +83,29 @@
     background-color: #f1f1f1;
 }
 
+@media screen and (max-width: 700px) {
+    .home-panel-profile {
+        width: 90%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .icon-following-wrapper-menu-bar-profile {
+        width: 24px;
+        height: 24px;
+    }
+    .icon-friend-wrapper-menu-bar-profile {
+        width: 24px;
+        height: 24px;
+    }
+    .icon-like-wrapper-menu-bar-profile {
+        width: 24px;
+        height: 24px;
+    }
+    .icon-dislike-wrapper-menu-bar-profile {
+        width: 24px;
+        height: 24px;
+    }
+}
 
 
 

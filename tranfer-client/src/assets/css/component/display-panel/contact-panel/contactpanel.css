@@ -1,0 +1,113 @@
+.contact-panel-wrapper {
+    width: 65%;
+    height: auto;
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 25px;
+    align-items: center;
+}
+.contact-panel-title {
+    
+    width: 95%;
+    color: rgb(136, 127, 127);
+    font-size: 32px;
+    padding: 5px 0px 0px 10px;
+    border-bottom: 3px solid rgb(136, 127, 127);
+}
+.contact-panel-wrapper > :not(:first-child) {
+    padding: 10px 0px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid  rgb(136, 127, 127);
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+}
+.contact-panel-wrapper > :not(:first-child) > div {
+    display: flex;
+    align-items: flex-end;
+    font-size: 18px;
+    color: gray;
+}
+.contact-panel-edit {
+    height: 24px;
+    margin-left: 15px;
+    width: 24px;
+    background-image: url("../../../../icon/edit_32px.png");
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: contain;  
+}
+.contact-panel-phone-icon {
+    background-image: url("../../../../icon/phone_32px.png");
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: contain; 
+    margin-right: 15px;
+}
+.contact-panel-gmail-icon {
+    background-image: url("../../../../icon/gmail_32px.png");
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: contain; 
+    margin-right: 15px;
+}
+.contact-panel-outlook-icon {
+    background-image: url("../../../../icon/microsoft_outlook_32px.png");
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: contain; 
+    margin-right: 15px;
+}
+.contact-panel-facebook-icon {
+    background-image: url("../../../../icon/facebook_old_32px.png");
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: contain; 
+    margin-right: 15px;
+}
+.contact-panel-twitter-icon {
+    background-image: url("../../../../icon/twitter_32px.png");
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: contain; 
+    margin-right: 15px;
+}
+.contact-panel-linkedin-icon {
+    background-image: url("../../../../icon/linkedin_32px.png");
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: contain; 
+    margin-right: 15px;
+}
+.contact-panel-zalo-icon {
+    background-image: url("../../../../icon/zalo_32px.png");
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: contain; 
+    margin-right: 15px;
+}
+.contact-panel-github-icon {
+    background-image: url("../../../../icon/github_32px.png");
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: contain; 
+    margin-right: 15px;
+}

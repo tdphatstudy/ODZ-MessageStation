@@ -20,4 +20,17 @@
 .nocafition-404-page {
     font-size: 24px;
     font-weight: 350;
+    text-align: center;
 }
+@media screen and (max-width: 300px) {
+    .oops-404-page {
+        font-size: 24px;
+    }
+    .number-404-page {
+        font-size: 48px;
+    }
+    .nocafition-404-page {
+        font-size: 12px;
+    }
+}
+    

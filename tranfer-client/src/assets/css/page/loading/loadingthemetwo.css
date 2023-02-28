@@ -1,0 +1,43 @@
+.loading-theme-two-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #008bff;
+}
+.loading-theme-two-icon {
+    padding: 20px;
+    border: 5px solid #ffffff;
+    animation: loadingtwo 3s infinite linear;
+    margin: 30px;
+}
+
+@keyframes loadingtwo {
+    0% {
+        
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        
+        transform: scale(1.5) rotate(360deg);
+    }
+    50% {
+        transform: rotate(0deg) scale(1);
+    }
+    75% {
+        transform: scale(0.5) rotate(360deg);
+    }
+    100% {
+        
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.loading-theme-two-title {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+

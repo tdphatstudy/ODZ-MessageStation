@@ -5,3 +5,9 @@
     border: none;
     border-radius: 25px;
 }
+@media screen and (max-width: 700px) {
+    .display-panel-profile {
+        width: 90%;
+    }
+    
+}

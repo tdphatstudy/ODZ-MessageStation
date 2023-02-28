@@ -1,5 +1,4 @@
 import "../../assets/css/component/quick-menu/quickmenu.css";
-
 const QuickMenu = () => {
     return (
         <div className="quick-menu-wrapper-profile">
