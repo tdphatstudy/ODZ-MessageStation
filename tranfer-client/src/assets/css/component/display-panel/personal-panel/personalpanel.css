@@ -1,0 +1,78 @@
+.personal-panel-wrapper {
+    width: 65%;
+    background-color: white;
+    border: none;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.personal-panel-avatar-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px;
+    border-bottom: 1px solid #e0c0c0;
+    width: 95%;
+    height: auto;
+    margin-bottom: 10px;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.personal-panel-avatar-image {
+    height: 200px;
+    width: 200px;
+    background-image: url("../../../../../text-data/user.png");
+    box-shadow: -5px 0px 9px 0px gray;
+    border-radius: 100%;
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+}
+.personal-panel-avatar-wrapper > :not(:first-child) {
+    border: 2px solid lightgray;
+    padding: 5px 15px 5px 40px;
+    border-radius: 25px;
+    position: relative;
+    font-size: 18px;
+    display: flex;
+}
+.personal-panel-avatar-wrapper > :not(:first-child):hover {
+    background-color: lightgray;
+    color: #ffffff;
+    
+}
+
+.personal-panel-avatar-upload::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 24px;
+    height: 24px;
+    background-image: url("../../../../icon/upload_32px.png");
+    background-size: contain;
+}
+
+.personal-panel-avatar-theme::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 24px;
+    height: 24px;
+    background-image: url("../../../../icon/collectibles_32px.png");
+    background-size: contain;
+}
+
+.personal-panel-avatar-online-search::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 24px;
+    height: 24px;
+    background-image: url("../../../../icon/globe_earth_32px.png");
+    background-size: contain;
+}
+

@@ -1,14 +1,22 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 .wrapper-profile {
     display: flex;
     flex-direction: column;
     height: auto;
+    width: 100%;
+    background-color: #f0f2f5;
 }
 .body-profile {
     display: flex;
     flex-direction: row;
-    background-color: #f0f2f5;
     min-height: 90vh;
     margin-top: 10px;
     justify-content: space-around;
     align-items: flex-start;
+    margin-top: 65px;
 }

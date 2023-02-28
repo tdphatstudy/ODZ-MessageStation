@@ -1,17 +1,20 @@
-.wrapper{
+#root {
+    width: 100%;
+    height: 100%;
+}
+.wrapper-register-page{
     font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
-    min-height: 100vh;
-    min-width: 100vw;
+    height: 100%;
+    width: 100%;
     background-image: linear-gradient(45deg, blue, red);
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.frame{
-    margin: 25px 0;
+.frame-register-page{
     font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
-    min-height: 80%;
-    width: 60%;
+    height: auto;
+    width: auto;
     display: flex;
     background-color: white;
     flex-direction: column;
@@ -19,7 +22,7 @@
     overflow: clip;
     border-radius: 25px;
 }
-.title {
+.title-register-page {
     align-items: center;
     font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
     font-size: 36px;
@@ -28,26 +31,26 @@
 
 }
 
-.input::placeholder{
+.input-register-page::placeholder{
     color: #7b7684;
 }
-.input:focus {
+.input-register-page:focus {
     outline: none !important;
     
 }
-.input {
-    width: 60%;
+.input-register-page {
+    width: 60vw;
     font-size: 18px !important;
     font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif !important;
     align-items: center;
-    margin: 10px 0px;
+    margin: 10px 20px;
     padding: 8px 15px;
     border-radius: 25px !important;
     border: none;
     background-color: #f0f2f5;
     color: #7b7684;
 }
-.button {
+.button-register-page {
     margin: 25px 0px;
     border: none;
     font-size: 24px !important;
@@ -56,18 +59,18 @@
     background-color:#A28803  !important;
     border-radius: 25px; 
 }
-.button:hover{
+.button-register-page:hover{
     color: gray;
     background-color: #70600E !important;
 }
-.func {
+.func-register-page {
     margin: 4px 0px;
 }
-.author {
+.author-register-page {
     margin: 10px 0px;
     font-style: italic;
 }
-.store-login-account {
+.store-login-account-register-page {
     display: flex;
     flex-direction: row;
 }

@@ -5,10 +5,14 @@ import Login from "./page/login/Login.jsx"
 import Register from './page/register/Register.jsx';
 import Profile from './page/profile/Profile.jsx';
 import Error404 from './page/error/Error404.jsx';
+import LoadingThemeOne from './page/loading/LoadingThemeOne';
+import LoadingThemeTwo from './page/loading/LoadingThemeTwo';
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route exact path='/' element={<LoadingThemeTwo />} /> 
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/profile' element={<Profile />} />
