@@ -1,0 +1,15 @@
+.chat-screen-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    background-color: #f0f2f5;
+}
+
+.chat-screen-body-wrapper {
+    width: 100%;
+    min-height: 90vh;
+    margin-top: 65px;
+    display: flex;
+    flex-direction: row;
+}

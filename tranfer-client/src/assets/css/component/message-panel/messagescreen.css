@@ -1,0 +1,8 @@
+.message-screen-wrapper {
+    width: 70%;
+    height: 100px;
+    background-color: #ffffff;
+    border-left: 2px solid #d3d3d3;
+    box-sizing: border-box;
+
+}
