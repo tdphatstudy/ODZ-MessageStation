@@ -4,7 +4,7 @@ const Login = () => {
     return (
         <div className="wrapper-login-page">
             <div className="frame-login-page">
-                <div class="title-login-page">OPS Tranfer</div>
+                <div class="title-login-page">ODZ MessageStation</div>
                 <input type="text" placeholder="Username" className="input-login-page"/>
                 <input type="password" placeholder="Password" className="input-login-page"/>
                 <input type="submit" value="Đăng Nhập" className="button-login-page" />
