@@ -5,7 +5,7 @@ var UserTestData = require("../../text-data/user.png");
 const NavarBar = () => {
     return (
         <div className="wrapper-navar-bar">
-            <div className="logo-navar-bar">OPS Tranfer</div>
+            <div className="logo-navar-bar">ODZ MessageStation</div>
             <input input="search" placeholder="Search..." className="search-bar" />
             <div className="menu-wrapper-navar-bar">
                 <div className="change-mode"><img src={ChangeModeIcon} className="change-mode-icon"/></div>

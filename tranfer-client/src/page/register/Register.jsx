@@ -4,7 +4,7 @@ const Register = () => {
     return (
         <div className="wrapper-register-page">
             <div className="frame-register-page">
-                <div class="title-register-page">OPS Tranfer</div>
+                <div class="title-register-page">ODZ MessageStation</div>
                 <input type="text" placeholder="Họ & Tên" className="input-register-page"/>
                 <input type="text" placeholder="Tên tài khoản" className="input-register-page"/>
                 <input type="password" placeholder="Mật Khẩu" className="input-register-page"/>
