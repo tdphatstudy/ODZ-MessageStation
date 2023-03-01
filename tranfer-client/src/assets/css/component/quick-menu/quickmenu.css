@@ -60,7 +60,7 @@
     margin: 10px 0px 10px 10px;
     width: 90%;
     font-size: 18px;
-    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+    
     
 }
 .option-quick-menu-profile:hover {
@@ -96,8 +96,26 @@
     vertical-align: bottom;
     display: inline-block;
 }
+.relationship-option-icon-quick-menu-profile {
+    background-image: url("../../../icon/relationship_32px.png");
+    margin-right: 10px;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    vertical-align: bottom;
+    display: inline-block;
+}
 .dark-mode-option-icon-quick-menu-profile {
     background-image: url("../../../icon/light_24px.png");
+    margin-right: 10px;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+.setting-option-icon-quick-menu-profile {
+    background-image: url("../../../icon/settings_32px.png");
     margin-right: 10px;
     background-size: contain;
     width: 24px;

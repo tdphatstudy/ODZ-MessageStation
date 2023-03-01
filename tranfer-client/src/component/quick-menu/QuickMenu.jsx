@@ -25,8 +25,16 @@ const QuickMenu = () => {
                         Liên hệ
                 </div>
                 <div className="option-quick-menu-profile">
+                    <div className="relationship-option-icon-quick-menu-profile"></div>
+                    Bạn bè và nhóm
+                </div>
+                <div className="option-quick-menu-profile">
                     <div className="dark-mode-option-icon-quick-menu-profile"></div>
                         Dark mode: OFF
+                </div>
+                <div className="option-quick-menu-profile">
+                    <div className="setting-option-icon-quick-menu-profile"></div>
+                    Cài đặt hệ thống
                 </div>
             </div>
         </div>
