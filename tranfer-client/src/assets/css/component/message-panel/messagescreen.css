@@ -1,8 +1,124 @@
 .message-screen-wrapper {
     width: 70%;
-    height: 100px;
+    height: calc(100vh - 65px);
     background-color: #ffffff;
     border-left: 2px solid #d3d3d3;
     box-sizing: border-box;
-
+    display: flex;
+    flex-direction: column;
 }
+.message-screen-title-bar {
+    width: 100%;
+    height: 30px;
+    padding: 15px 0px;
+    border-bottom: 2px solid #d3d3d3;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.message-screen-title-bar-friend-item-info {
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    align-items: center;
+}
+.message-screen-title-bar-friend-item-info > * {
+    margin: 0px 15px;
+}
+.message-screen-title-bar-avatar {
+    background-image: url("../../../../text-data/user.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 48px;
+    width: 48px;
+    border-radius: 100rem;
+}
+.message-screen-title-bar-name {
+    font-weight: bold;
+}
+.message-screen-title-bar-status {
+    color: lightgreen;
+}
+.message-screen-title-bar-function-button {
+    display: flex; 
+    flex-direction: row;
+    margin-right: 32px;
+}
+.message-screen-title-bar-function-button > * {
+    margin: 0 10px;
+    height: 24px;
+    width: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.message-screen-title-bar-call-func {
+    background-image: url("../../../icon/phone_50px_blue.png");
+}
+.message-screen-title-bar-video-call-func {
+    background-image: url("../../../icon/video_call_50px_blue.png");   
+}
+.message-screen-title-bar-info-func {
+    background-image: url("../../../icon/information_50px_blue.png");   
+}
+.message-screen-display {
+    flex: 1;
+    background-image: linear-gradient(180deg, #9099A8, #CFD7E5); 
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+.message-screen-display::-webkit-scrollbar {
+   width: 10px;
+}
+.message-screen-display::-webkit-scrollbar-track {
+    background: #d3d3c3;
+}
+.message-screen-display::-webkit-scrollbar-thumb {
+    background-color: #808080;
+    border-radius: 5px;
+    border: 1px solid #808080;
+}
+.message-screen-input-bar {
+    width: 100%;
+    height: 40px;
+    padding: 10px 0px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.message-screen-input-bar > div {
+    height: 24px;
+    width: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: 0px 15px;
+}
+.message-screen-voice-input {
+    background-image: url("../../../icon/microphone_50px.png");
+}
+.message-screen-file-input {
+    background-image: url("../../../icon/file_50px_blue.png");
+}
+.message-screen-emoji-input {
+    background-image: url("../../../icon/emoji_50px_blue.png");
+}
+.message-screen-gif-input {
+    background-image: url("../../../icon/gif_50px_blue.png");
+}
+.message-screen-text-input {
+    height: 30px;
+    flex: 1;
+    margin-right: 30px;
+    background-color: #d3d3d3 !important;
+    border: none !important;
+    padding-left: 10px;
+    border-radius: 25px;
+}
+
+

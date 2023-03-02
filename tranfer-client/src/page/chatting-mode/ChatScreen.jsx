@@ -10,8 +10,7 @@ const ChatScreen = () => {
         <div className="chat-screen-wrapper">
             <NavarBar />
             <div className="chat-screen-body-wrapper">
-                <MessageControl />
-                <MessageScreen />
+                <MessagePanel />
             </div>
         </div>
     );

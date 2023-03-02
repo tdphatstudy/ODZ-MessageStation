@@ -1,0 +1,39 @@
+.friend-item-wrapper  {
+    width: 95%;
+    height: auto;
+    padding: 15px 0px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 5px 0px;
+}
+.friend-item-avatar {
+    margin-left: 20px;
+    height: 48px;
+    width: 48px;
+    background-image: url("../../../../text-data/user.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 100rem;
+}
+.friend-item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 25px;
+}
+.friend-item-name {
+    font-weight: bold;
+}
+.friend-item-last-message {
+    margin-top: 10px;
+    width: 60%;
+    overflow: hidden;
+    font-weight: 200;
+    color: #b3b3b3;
+}
