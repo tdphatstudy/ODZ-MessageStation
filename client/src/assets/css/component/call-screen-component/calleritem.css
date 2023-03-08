@@ -1,0 +1,27 @@
+.caller-item-wrapper {
+    width: calc(25% - 30px);
+    margin: 15px 15px;
+    height: auto;
+    padding: 20px 0px;
+    background-color: #666666;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.caller-item-img {
+    height: 100px;
+    width: 100px;
+    background-image: url("../../../../text-data/user.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 100rem;
+}
+.caller-item-name {
+    margin-top: 20px;
+    color: #ffffff;
+    font-size: 18px;
+}
