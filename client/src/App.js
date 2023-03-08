@@ -8,6 +8,7 @@ import ChatScreen from './page/chatting-mode/ChatScreen';
 import Error404 from './page/error/Error404.jsx';
 import LoadingThemeOne from './page/loading/LoadingThemeOne';
 import LoadingThemeTwo from './page/loading/LoadingThemeTwo';
+import CallScreen from './page/call-screen/CallScreen';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/profile' element={<Profile />} />
         <Route  exact path='/chat' element={<ChatScreen />} />
+        <Route exact path='/call' element={<CallScreen />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
