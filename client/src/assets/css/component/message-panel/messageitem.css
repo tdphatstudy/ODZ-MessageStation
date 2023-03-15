@@ -22,6 +22,9 @@
     font-weight: 200;
     font-size: 12px;
 }
+.message-item-me-pronoun-content {
+    max-width: 90%;
+}
 .message-item-other-pronoun-wrapper {
     width: auto;
     height: auto;
@@ -45,6 +48,10 @@
     color: #73B778;
     font-weight: 200;
     font-size: 12px;
+}
+.message-item-other-pronoun-content {
+    max-width: 99%;
+    overflow: hidden;
 }
 .message-item-error-wrapper {
     margin: 30px 0px;

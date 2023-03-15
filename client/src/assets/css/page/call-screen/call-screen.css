@@ -87,7 +87,7 @@
 
 .own-call-item {
     border: 1px solid #ffffff;
-    width: 600px;
+    width: 40%;
     margin: 15px 15px;
     height: auto;
     padding: 20px 0px;
@@ -103,8 +103,8 @@
     right: 10px;
 }
 .own-call-item-avatar {
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     background-image: url("../../../../text-data/user.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -115,4 +115,20 @@
     margin-top: 20px;
     color: #ffffff;
     font-size: 18px;
+}
+@media screen and (max-width: 400px) {
+    .own-call-item-avatar {
+        height: 100px;
+        width: 100px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .call-screen-controll-bar > :last-child {
+        display: none;
+    }
+}
+@media screen and (max-width: 400px) {
+    .call-screen-controll-bar > :nth-child(4) {
+        display: none;
+    }
 }

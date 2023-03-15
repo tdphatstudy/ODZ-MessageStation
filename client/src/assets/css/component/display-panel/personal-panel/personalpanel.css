@@ -17,6 +17,7 @@
     margin-bottom: 10px;
     align-items: flex-end;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .personal-panel-avatar-image {
     height: 200px;
@@ -27,6 +28,7 @@
     background-size: 100% 100%;
     background-position: center center;
     background-repeat: no-repeat;
+    margin: 10px 10px;
 
 }
 .personal-panel-avatar-wrapper > :not(:first-child) {
@@ -36,6 +38,7 @@
     position: relative;
     font-size: 18px;
     display: flex;
+    margin: 10px 0px;
 }
 .personal-panel-avatar-wrapper > :not(:first-child):hover {
     background-color: lightgray;
@@ -74,5 +77,18 @@
     height: 24px;
     background-image: url("../../../../icon/globe_earth_32px.png");
     background-size: contain;
+}
+
+@media screen and (max-width: 700px) {
+    .personal-panel-wrapper {
+        width: 90%;
+    }
+}
+@media screen and (max-width: 800px) {
+    .personal-panel-avatar-image {
+        height: 100px;
+        width: 100px;
+    }
+    
 }
 
