@@ -25,3 +25,24 @@
     color: #ffffff;
     font-size: 18px;
 }
+@media screen and (max-width: 1000px) {
+    .caller-item-wrapper {
+        width: calc(50% - 30px);
+    }
+}
+@media screen and (max-width: 400px) {
+    .caller-item-img {
+        height: 80px;
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .caller-item-wrapper {
+        width: calc(100% - 30px);
+    }
+    .caller-item-img {
+        height: 80px;
+        width: 80px;
+    }
+}
