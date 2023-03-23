@@ -14,7 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path='/' element={<LoadingThemeTwo />} /> 
+        <Route exact path='/' element={<LoadingThemeOne />} /> 
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/profile' element={<Profile />} />
