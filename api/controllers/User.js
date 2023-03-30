@@ -16,46 +16,50 @@ const UserController = {
     get: async(req, res, next) => {
         try {
             const users = await User.find();
-            res.status(200).json({success: true, message: "Lấy User thành công.", users});
+            res.status(200).json({success: true, messenge: "Lấy User thành công.", users});
         } catch (error) {
             console.log(error);
-            res.status(500).json({success: false, message: 'Internal server error'});
+            res.status(500).json({success: false, messenge: 'Internal server error'});
         }
     },
     getByStatusAccount: async(req, res, next) => {
         try {
+            if (!User.schema.path('account_status').enumValues.includes(req.params.status))
+                return res.status(400).json({success: false, messenge: "Tham số không hợp lệ."});
             const users = await User.find({account_status: req.params.status});
-            res.status(200).json({success: true, message: "Lấy User thành công.", users});
+            res.status(200).json({success: true, messenge: "Lấy User thành công.", users});
         } catch (error) {
             console.log(error);
-            res.status(500).json({success: false, message: 'Internal server error'});
+            res.status(500).json({success: false, messenge: 'Internal server error'});
         }
     },
     getByOnlineStatus: async(req, res, next) => {
         try {
+            if (!User.schema.path('online_status').enumValues.includes(req.params.status))
+                return res.status(400).json({success: false, messenge: "Tham số không hợp lệ."});
             const users = await User.find({online_status: req.params.status});
-            res.status(200).json({success: true, message: "Lấy User thành công.", users});
+            res.status(200).json({success: true, messenge: "Lấy User thành công.", users});
         } catch (error) {
             console.log(error);
-            res.status(500).json({success: false, message: 'Internal server error'});
+            res.status(500).json({success: false, messenge: 'Internal server error'});
         }
     },
     create: async(req, res, next) => {
         try {
             const {fullname, username, password, repassword, gmail} = req.body;
             if (!username || !password) 
-                return res.status(400).json({success: false, message: 'Quên thông tin username hoặc password.'});
+                return res.status(400).json({success: false, messenge: 'Quên thông tin username hoặc password.'});
             if (!fullname) 
-                return res.status(400).json({success: false, message: 'Họ & Tên là trường bắt buộc.'});
+                return res.status(400).json({success: false, messenge: 'Họ & Tên là trường bắt buộc.'});
             if (password != repassword) 
-                return res.status(400).json({success: false, message: 'Password và repassword không trùng khớp'});
+                return res.status(400).json({success: false, messenge: 'Password và repassword không trùng khớp'});
             const gmailValidate  = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@gmail.com*$/;
             if (!gmailValidate.test(gmail)) 
-                return res.status(400).json({success: false, message: 'Gmail không hợp lệ!'});
+                return res.status(400).json({success: false, messenge: 'Gmail không hợp lệ!'});
             const existUser = await User.findOne({username: username});
-            if (existUser) return res.status(400).json({success: false, message: "Username đã tồn tại!"});
+            if (existUser) return res.status(400).json({success: false, messenge: "Username đã tồn tại!"});
             const existGmail = await User.findOne({gmail: gmail});
-            if (existGmail) return res.status(400).json({success: false, message: "Gmail đã tồn tại!"});
+            if (existGmail) return res.status(400).json({success: false, messenge: "Gmail đã tồn tại!"});
             const hashPass = await sercurityTools.hash(password);
             console.log(hashPass);
             const newUser = new User({
@@ -65,12 +69,12 @@ const UserController = {
                 gmail
             });
             await newUser.save();
-            res.status(200).json({sucess: true, message: "Đăng ký thành công. Vui lòng vào gmail để xác nhận."});
+            res.status(200).json({sucess: true, messenge: "Đăng ký thành công. Vui lòng vào gmail để xác nhận."});
            
 
         }catch(error) {  
             console.log(error);
-            return res.status(500).json({success: false, message: 'Internal server error'});
+            return res.status(500).json({success: false, messenge: 'Internal server error'});
         }
 
     },
@@ -78,53 +82,53 @@ const UserController = {
         try {
             const {username, role} = req.body;
             if (!role || !User.schema.path('role').enumValues.includes(role)) {
-                return res.status(400).json({success: false, message: "Role mới không phù hợp hoặc không tồn tại."});
+                return res.status(400).json({success: false, messenge: "Role mới không phù hợp hoặc không tồn tại."});
             }
             const existUser = await User.findOne({username: username});
-            if (!existUser) return res.status(404).json({success: false, message: `Tài khoản với username là ${username} không tồn tại.`});
+            if (!existUser) return res.status(404).json({success: false, messenge: `Tài khoản với username là ${username} không tồn tại.`});
             existUser.role = role;
             existUser.update_at = Date.now;
             await existUser.save();
-            res.status(200).json({success: true, message: "Thay quyền thành công."})
+            res.status(200).json({success: true, messenge: "Thay quyền thành công."})
         } catch (error) {
             console.log(error);
-            res.status(500).json({success: false, message: "Internal server error!"});
+            res.status(500).json({success: false, messenge: "Internal server error!"});
         }
     },
     changeAccountStatus: async (req, res, next) => {
         try {
             const {username, status} = req.body;
             if (!role || !User.schema.path('account_status').enumValues.includes(status)) {
-                return res.status(400).json({success: false, message: "Status mới không phù hợp hoặc không tồn tại."});
+                return res.status(400).json({success: false, messenge: "Status mới không phù hợp hoặc không tồn tại."});
             }
             const existUser = await User.findOne({username: username});
-            if (!existUser) return res.status(404).json({success: false, message: `Tài khoản với username là ${username} không tồn tại.`});
+            if (!existUser) return res.status(404).json({success: false, messenge: `Tài khoản với username là ${username} không tồn tại.`});
             if (existUser.account_status === "inactivity" && status === 'activity') 
-                return res.status(400).json({success: false, message: "Tài khoản chỉ có thể kích hoạt thủ công bằng cách xác nhận bằng đường link, được gửi thông qua gmail mà người dùng đã đăng ký."});
+                return res.status(400).json({success: false, messenge: "Tài khoản chỉ có thể kích hoạt thủ công bằng cách xác nhận bằng đường link, được gửi thông qua gmail mà người dùng đã đăng ký."});
             existUser.account_status = status;
             existUser.update_at = Date.now;
             await existUser.save();
-            res.status(200).json({success: true, message: "Thay trạng thái tài khoản thành công."})
+            res.status(200).json({success: true, messenge: "Thay trạng thái tài khoản thành công."})
         } catch (error) {
             console.log(error);
-            res.status(500).json({success: false, message: "Internal server error!"});
+            res.status(500).json({success: false, messenge: "Internal server error!"});
         }
     }, 
     changeOnlineStatus: async (req, res, next) => {
         try {
             const {username, status} = req.body;
             if (!role || !User.schema.path('online_status').enumValues.includes(status)) {
-                return res.status(400).json({success: false, message: "Status mới không phù hợp hoặc không tồn tại."});
+                return res.status(400).json({success: false, messenge: "Status mới không phù hợp hoặc không tồn tại."});
             }
             const existUser = await User.findOne({username: username});
-            if (!existUser) return res.status(404).json({success: false, message: `Tài khoản với username là ${username} không tồn tại.`});
+            if (!existUser) return res.status(404).json({success: false, messenge: `Tài khoản với username là ${username} không tồn tại.`});
             existUser.status = status;
             existUser.update_at = Date.now;
             await existUser.save();
-            res.status(200).json({success: true, message: "Thay trạng thái thành công."})
+            res.status(200).json({success: true, messenge: "Thay trạng thái thành công."})
         } catch (error) {
             console.log(error);
-            res.status(500).json({success: false, message: "Internal server error!"});
+            res.status(500).json({success: false, messenge: "Internal server error!"});
         }
 
     }

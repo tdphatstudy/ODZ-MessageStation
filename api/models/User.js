@@ -11,6 +11,9 @@ const UserSchema = new Schema({
     required: true,
     unique: true
   },
+  avatar: {
+    type: String
+  },
   gmail: {
     type: String,
     required: true,

@@ -1,9 +1,19 @@
 const mongoose = require('mongoose');
 
-const groupSchema = new mongoose.Schema({
+const groupChatSchema = new mongoose.Schema({
   name: {
+    name_type: {
+      type: String,
+      enum: ['normal', 'refs'],
+      required: true
+    }, 
+    content_name: {
+      type: String
+    }
+
+  },
+  avatar: {
     type: String,
-    required: true
   },
   description: String,
   members: [
@@ -18,6 +28,12 @@ const groupSchema = new mongoose.Schema({
       ref: 'User'
     }
   ],
+  type: {
+    type: String,
+    enum: ['Relationship', 'Public'],
+    required: true,
+    default: 'Relationship'
+  },
   created_at: {
     type: Date,
     default: Date.now
@@ -28,6 +44,5 @@ const groupSchema = new mongoose.Schema({
   }
 });
 
-const Group = mongoose.model('Group', groupSchema);
-
+const Group = mongoose.model('GroupChat', groupChatSchema);
 module.exports = Group;

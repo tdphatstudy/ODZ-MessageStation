@@ -11,7 +11,7 @@ const relationshipSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'accepted', 'rejected'],
+    enum: ['sending', 'pending', 'friend', 'unfriend'],
     default: 'pending'
   },
   created_at: {
@@ -24,6 +24,5 @@ const relationshipSchema = new mongoose.Schema({
   }
 });
 
-const Relationship = mongoose.model('Relationship', relationshipSchema);
 
-module.exports = Relationship;
+module.exports = mongoose.model('Relationship', relationshipSchema);

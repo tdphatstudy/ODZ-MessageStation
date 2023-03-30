@@ -1,33 +1,27 @@
 const mongoose = require('mongoose');
 
 const callSchema = new mongoose.Schema({
-  callerId: {
+  participants: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  },
-  calleeId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  chatRoomId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'ChatRoom',
+  }],
+  type: {
+    type: String,
+    enum: ['audio', 'video'],
     required: true
   },
   status: {
     type: String,
-    enum: ['waiting', 'connecting', 'calling', 'ended'],
-    required: true
+    enum: ['started', 'ended'],
+    default: 'started'
   },
-  startedAt: {
+  started_at: {
     type: Date,
-    required: true
+    default: Date.now
   },
-  endedAt: {
-    type: Date,
-    default: null
+  ended_at: {
+    type: Date
   }
 });
 
