@@ -1,7 +1,9 @@
+const mongoose = require('mongoose');
+
 const messageSchema = new mongoose.Schema({
-    chatRoomId: {
+    revGroupId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'ChatRoom',
+      ref: 'GroupChat',
       required: true
     },
     senderId: {
@@ -19,15 +21,23 @@ const messageSchema = new mongoose.Schema({
     },
     attachments: [
       {
-        type: String,
-        required: true
+        attachments_type: {
+          type: String,
+          enum: ['link', 'image','video', 'gif', 'emoji', 'location']
+        },
+        attachments_content: {
+          type: String
+        }
       }
     ],
-    metadata: {
-      type: Object
+    visible_status: {
+      type: String,
+      enum: ['visible', 'unvisible'],
+      default: 'visible'
     },
     createdAt: {
       type: Date,
       default: Date.now
     }
   });
+module.exports = mongoose.model('Message', messageSchema);
