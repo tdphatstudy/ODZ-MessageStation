@@ -11,7 +11,7 @@ const relationshipSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['sending', 'pending', 'friend', 'unfriend'],
+    enum: ['sending', 'pending', 'friend', 'unfriend', 'lock'],
     default: 'pending'
   },
   created_at: {
