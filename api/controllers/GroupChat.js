@@ -22,11 +22,82 @@ const GroupChatController = {
                 avatar: 'default.png',
                 members: [user1, user2]
             });
-            relationshipGroup.save();
-            res.status(200).
+            await relationshipGroup.save();
+            res.status(200).json({success: false, messenge: "Tạo relationship group thành công!"});
         } catch (error) {
             console.log(error);
             res.status(500).json({success: false, messenge: "Interval server error!"})
         }
     },
+    createPublicGroup: async(req, res, next) => {
+        try {
+            const {nameGroup, avatarUri, members, host} = req.body;
+            members.forEach(async(element) => {
+                let existUser = await User.findById(element);
+                if (!existUser) 
+                    return res.status(400).json({success: false, messenge: `${existUser.fullname} không tồn tại để thực hiện thao tác này.`});
+                if (existUser.account_status != "activity") 
+                    return res.status(400).json({success: false, messenge: `Tài khoản ${existUser.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`}); 
+            });
+            const publicGroup = new GroupChat({
+                name: {name_type: 'normal', content_name: nameGroup},
+                avatar: avatarUri,
+                members: members,
+                admins: [host],
+                type: "Public"
+            });
+            await publicGroup.save();
+            res.status(200).json({success: false, messenge: "Tạo public group thành công!"});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, messenge: "Interval server error!"})
+        }
+    }, 
+    addMember: async(req, res, next) => {
+        try{
+            const {groupid, newMember} = req.body;
+            let existGroup = await GroupChat.findById(groupid);
+            if (!existGroup) 
+                return res.status(400).json({success: false, messenge: `Nhóm không tồn tại để thực hiện thao tác này.`})
+            if (existGroup.type != "Public") 
+                return res.status(400).json({success: false, messenge: `Nhóm không phải là Public để thực hiện thao tác này.`})
+            const existUser = await User.findById(newMember);
+            if (!existUser) 
+                return res.status(400).json({success: false, messenge: `${existUser.fullname} không tồn tại để thực hiện thao tác này.`});
+            if (existUser.account_status != "activity") 
+                return res.status(400).json({success: false, messenge: `Tài khoản ${existUser.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`}); 
+            existGroup.members.push(newMember);
+            await existGroup.save();
+            res.status(200).json({success: false, messenge: "Thêm user vào group thành công!"});
+        } catch(error) {
+            console.log(error);
+            res.status(500).json({success: false, messenge: "Interval server error!"})
+        }
+    },
+    addAdmin: async(req, res, next) => {
+        try{
+            const {groupid, newAdmin} = req.body;
+            let existGroup = await GroupChat.findById(groupid);
+            if (!existGroup) 
+                return res.status(400).json({success: false, messenge: `Nhóm không tồn tại để thực hiện thao tác này.`})
+            if (existGroup.type != "Public") 
+                return res.status(400).json({success: false, messenge: `Nhóm không phải là Public để thực hiện thao tác này.`})
+            const existUser = await User.findById(newAdmin);
+            if (!existUser) 
+                return res.status(400).json({success: false, messenge: `${existUser.fullname} không tồn tại để thực hiện thao tác này.`});
+            if (existUser.account_status != "activity") 
+                return res.status(400).json({success: false, messenge: `Tài khoản ${existUser.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`}); 
+            const existMember = existGroup.members.some((value) => {
+                return value == newAdmin;
+            });
+            if (existMember == false) 
+                return res.status(400).json({success: false, messenge: `${existUser.fullname} không phải là thành viên của group.`});
+            existGroup.admins.push(newAdmin);
+            await existGroup.save();
+            res.status(200).json({success: false, messenge: "Thêm user vào group thành công!"});
+        } catch(error) {
+            console.log(error);
+            res.status(500).json({success: false, messenge: "Interval server error!"})
+        }
+    }
 }

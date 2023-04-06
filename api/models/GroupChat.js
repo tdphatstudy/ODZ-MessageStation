@@ -15,7 +15,6 @@ const groupChatSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
-  description: String,
   members: [
     {
       type: mongoose.Schema.Types.ObjectId,

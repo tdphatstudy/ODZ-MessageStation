@@ -44,6 +44,15 @@ const UserController = {
             res.status(500).json({success: false, messenge: 'Internal server error'});
         }
     },
+    getById: async(req, res, next) => {
+        try {
+            const user = await User.findById(req.params.id);
+            res.status(200).json({success: true, messenge: "Lấy User thành công.", user: user});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, messenge: 'Internal server error'});
+        }
+    },
     create: async(req, res, next) => {
         try {
             const {fullname, username, password, repassword, gmail} = req.body;
@@ -84,7 +93,7 @@ const UserController = {
             if (!role || !User.schema.path('role').enumValues.includes(role)) {
                 return res.status(400).json({success: false, messenge: "Role mới không phù hợp hoặc không tồn tại."});
             }
-            const existUser = await User.findOne({username: username});
+            let existUser = await User.findOne({username: username});
             if (!existUser) return res.status(404).json({success: false, messenge: `Tài khoản với username là ${username} không tồn tại.`});
             existUser.role = role;
             existUser.update_at = Date.now;
@@ -101,7 +110,7 @@ const UserController = {
             if (!role || !User.schema.path('account_status').enumValues.includes(status)) {
                 return res.status(400).json({success: false, messenge: "Status mới không phù hợp hoặc không tồn tại."});
             }
-            const existUser = await User.findOne({username: username});
+            let existUser = await User.findOne({username: username});
             if (!existUser) return res.status(404).json({success: false, messenge: `Tài khoản với username là ${username} không tồn tại.`});
             if (existUser.account_status === "inactivity" && status === 'activity') 
                 return res.status(400).json({success: false, messenge: "Tài khoản chỉ có thể kích hoạt thủ công bằng cách xác nhận bằng đường link, được gửi thông qua gmail mà người dùng đã đăng ký."});
@@ -120,7 +129,7 @@ const UserController = {
             if (!role || !User.schema.path('online_status').enumValues.includes(status)) {
                 return res.status(400).json({success: false, messenge: "Status mới không phù hợp hoặc không tồn tại."});
             }
-            const existUser = await User.findOne({username: username});
+            let existUser = await User.findOne({username: username});
             if (!existUser) return res.status(404).json({success: false, messenge: `Tài khoản với username là ${username} không tồn tại.`});
             existUser.status = status;
             existUser.update_at = Date.now;

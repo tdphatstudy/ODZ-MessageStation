@@ -33,7 +33,7 @@ const MessengeController = {
     changeReadStatus:  async (req, res, next) => {
         try {
             const {messengeId} = req.body;
-            const existMessenge = Messenge.findById(messengeId);
+            let existMessenge = Messenge.findById(messengeId);
             if (!existMessenge) 
                 return res.status(400).json({success: false, messenge:"Tin nhắn không tồn tại."});
             const {senderId, revGroupId, ...other} = existMessenge; 
@@ -55,7 +55,7 @@ const MessengeController = {
     changeVisible: async (req, res, next) => {
         try {
             const {messengeId, visiblestatus} = req.body;
-            const existMessenge = Messenge.findById(messengeId);
+            let existMessenge = Messenge.findById(messengeId);
             if (!existMessenge) 
                 return res.status(400).json({success: false, messenge:"Tin nhắn không tồn tại."});
             const {senderId, revGroupId, ...other} = existMessenge; 
@@ -76,11 +76,10 @@ const MessengeController = {
     },
     getByGroupChat: async(req, res, next) => {
         try {
-            const {groupChatId, page} = req.body;
-            const existGroupChat = await GroupChat.findById(groupChatId);
+            const existGroupChat = await GroupChat.findById(req.params.groupId);
             if (!existGroupChat) 
                 return res.status(400).json({success: false, messenge:"Group chat không tồn tại."});
-            const historyMessenge = await Messenge.find().sort({createdAt: -1}).skip(0+(page*200)).limit(200).populate("senderId", "fullname avatar")
+            const historyMessenge = await Messenge.find().sort({createdAt: -1}).skip(0+(req.params.page*200)).limit(200).populate("senderId", "fullname avatar")
             res.status(200).json({success: true, historyMessenge})
         }catch (error) {
             console.log(error);
@@ -88,3 +87,4 @@ const MessengeController = {
         }
     }
 };
+module.exports = MessengeController;

@@ -1,9 +1,46 @@
 const express = require('express');
 const router = express.Router();
 const Relationship = require("../models/Relationship.js");
+const { listenerCount } = require('../models/User.js');
 const User = require("../models/User.js");
 
 const relationshipController = {
+    getAllByUser: async(req, res, next) => {
+        try {
+            const relationships = await Relationship.find({user1: req.params.id}).populate("user1").populate('user2');
+            res.status(200).json({success: true, messenge: "Lấy Relationship thành công.", relationships});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, messenge: 'Internal server error'});
+        }
+    },
+    getFriendByUser: async(req, res, next) => {
+        try {
+            const relationships = await Relationship.find({user1: req.params.id, status: 'friend'}).populate("user1").populate('user2');
+            res.status(200).json({success: true, messenge: "Lấy Relationship thành công.", relationships});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, messenge: 'Internal server error'});
+        }
+    },
+    getSendingByUser: async(req, res, next) => {
+        try {
+            const relationships = await Relationship.find({user1: req.params.id, status: 'sending'}).populate("user1").populate('user2');
+            res.status(200).json({success: true, messenge: "Lấy Relationship thành công.", relationships});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, messenge: 'Internal server error'});
+        }
+    },
+    getPendingByUser: async(req, res, next) => {
+        try {
+            const relationships = await Relationship.find({user1: req.params.id, status: 'pending'}).populate("user1").populate('user2');
+            res.status(200).json({success: true, messenge: "Lấy Relationship thành công.", relationships});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, messenge: 'Internal server error'});
+        }
+    },
     create: async(req, res, next) => {
         try {
             const {user1, user2} = req.body;
@@ -40,11 +77,11 @@ const relationshipController = {
                 return res.status(400).json({success: false, messenge: `${existUser2.fullname} không tồn tại để thực hiện thao tác này.`});
             if (existUser1.account_status != "activity") 
                 return res.status(400).json({success: false, messenge: `Tài khoản ${existUser2.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`});     
-            const relationship = await Relationship.findOne({
+            let relationship = await Relationship.findOne({
                 user1: user_res,
                 user2: user_accept
             });
-            const two_way_relationship = await Relationship.findOne({
+            let two_way_relationship = await Relationship.findOne({
                 user2: user_res,
                 user1: user_accept
             });
@@ -74,12 +111,12 @@ const relationshipController = {
                 return res.status(400).json({success: false, messenge: `${existUser2.fullname} không tồn tại để thực hiện thao tác này.`});
             if (existUser1.account_status != "activity") 
                 return res.status(400).json({success: false, messenge: `Tài khoản ${existUser2.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`});     
-            const relationship = await Relationship.findOne({
+            let relationship = await Relationship.findOne({
                 user1: user_res,
                 user2: user_accept,
                 status: 'friend'
             });
-            const two_way_relationship = await Relationship.findOne({
+            let two_way_relationship = await Relationship.findOne({
                 user2: user_res,
                 user1: user_accept,
                 status: 'friend'
