@@ -78,7 +78,7 @@ const UserController = {
                 gmail
             });
             await newUser.save();
-            res.status(200).json({sucess: true, messenge: "Đăng ký thành công. Vui lòng vào gmail để xác nhận."});
+            res.status(200).json({sucess: true, messenge: "Tạo tài khoản thành công. Vui lòng vào gmail để xác nhận."});
            
 
         }catch(error) {  
@@ -139,7 +139,6 @@ const UserController = {
             console.log(error);
             res.status(500).json({success: false, messenge: "Internal server error!"});
         }
-
     }
 }
 

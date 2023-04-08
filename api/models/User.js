@@ -51,6 +51,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  auth_code: {
+    type: String,
+    default: ''
+  },
   old_passwords: {
     type: [String],
     default: []
