@@ -1,6 +1,7 @@
 const User = require("../models/User.js");
 const jwt = require("jsonwebtoken");
 const sercurityTools = require("argon2");
+const sendEmail = require('../helper/Email/Email.js');
 
 
 const PasswordValidate = (password) => {
@@ -70,7 +71,6 @@ const UserController = {
             const existGmail = await User.findOne({gmail: gmail});
             if (existGmail) return res.status(400).json({success: false, messenge: "Gmail đã tồn tại!"});
             const hashPass = await sercurityTools.hash(password);
-            console.log(hashPass);
             const newUser = new User({
                 fullname,
                 username,
@@ -114,9 +114,13 @@ const UserController = {
             if (!existUser) return res.status(404).json({success: false, messenge: `Tài khoản với username là ${username} không tồn tại.`});
             if (existUser.account_status === "inactivity" && status === 'activity') 
                 return res.status(400).json({success: false, messenge: "Tài khoản chỉ có thể kích hoạt thủ công bằng cách xác nhận bằng đường link, được gửi thông qua gmail mà người dùng đã đăng ký."});
+            const old_status = existUser.account_status;
             existUser.account_status = status;
             existUser.update_at = Date.now;
             await existUser.save();
+            const data = {fullname: existUser.fullname};
+            if (status === "lock") sendEmail('lock', data)
+            if (old_status === "lock" && status === 'activity') sendEmail('unlock', data);
             res.status(200).json({success: true, messenge: "Thay trạng thái tài khoản thành công."})
         } catch (error) {
             console.log(error);

@@ -11,3 +11,4 @@ const StringHandle = {
         return result;
     }
 }
+module.exports = StringHandle;

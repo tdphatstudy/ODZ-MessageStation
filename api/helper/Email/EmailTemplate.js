@@ -12,8 +12,7 @@ const DataTemplate = {
                       <div>Email này nhằm xác nhận bạn có phải là người thực hiện đăng ký thực tài khoản trên nền tảng của chúng tôi hay không.</div><br>
                       <div>Nếu bạn thực sự là người đã đăng ký tài khoản hãy nhập mã xác thực trong lần đầu tiên đăng nhập để xác thực tài khoản.</div>
                       <div>Đây là mã code của bạn:  <b>${data.auth_code}</b></div>
-                      <div>Nếu có người đã dùng danh tính của bạn để thực hiện đăng ký bạn có thể nhấn vào link dưới đây</div>
-                      <div>${data.del_link}</div>
+                      <div>Nếu có người đã dùng danh tính của bạn để thực hiện đăng ký bạn có thể liên hệ với chúng tôi.</div>
                       <div>Mọi thắc mắc và vấn đề có thể liên hệ với chúng tôi tại developer.opendevzone@gmail.com</div><br>
                       <hr>
                       <i>Trân thành cảm ơn đã sử dụng dịch vụ của chúng tôi. </i>
