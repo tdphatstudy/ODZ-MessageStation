@@ -56,13 +56,16 @@ const UserController = {
     },
     create: async(req, res, next) => {
         try {
-            const {fullname, username, password, repassword, gmail} = req.body;
+            const {fullname, username, password, repassword, gmail, role} = req.body;
             if (!username || !password) 
                 return res.status(400).json({success: false, messenge: 'Quên thông tin username hoặc password.'});
             if (!fullname) 
                 return res.status(400).json({success: false, messenge: 'Họ & Tên là trường bắt buộc.'});
             if (password != repassword) 
                 return res.status(400).json({success: false, messenge: 'Password và repassword không trùng khớp'});
+            if (!role || !User.schema.path('role').enumValues.includes(role)) {
+                return res.status(400).json({success: false, messenge: "Role không phù hợp hoặc không tồn tại."});
+            }
             const gmailValidate  = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@gmail.com*$/;
             if (!gmailValidate.test(gmail)) 
                 return res.status(400).json({success: false, messenge: 'Gmail không hợp lệ!'});
@@ -75,7 +78,8 @@ const UserController = {
                 fullname,
                 username,
                 password: hashPass,
-                gmail
+                gmail,
+                role
             });
             await newUser.save();
             res.status(200).json({sucess: true, messenge: "Tạo tài khoản thành công. Vui lòng vào gmail để xác nhận."});
