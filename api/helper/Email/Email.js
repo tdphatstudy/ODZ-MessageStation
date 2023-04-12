@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const EmailTemplate = require('./EmailTemplate.js');
 
 
 let transporterGmail = nodemailer.createTransport({
@@ -18,7 +19,9 @@ const mailOptions = (from, to, subject, html) => {
     });
 };
 const sendEmail = async(to, type, data) => {
-    await transporter.sendMail(mailOptions(transporterGmail.auth.user,to,  ), function(error, info){
+    const template = EmailTemplate(type, data);
+    const mailInfor = mailOptions(transporterGmail.auth.user,to, template.subject, template.content);
+    await transporter.sendMail(mailInfor, function(error, info){
         if (error) {
           return false;
         } else {
@@ -26,3 +29,4 @@ const sendEmail = async(to, type, data) => {
         }
       });
 }
+module.exports = sendMail;
