@@ -79,7 +79,7 @@ const MessengeController = {
             const existGroupChat = await GroupChat.findById(req.params.groupId);
             if (!existGroupChat) 
                 return res.status(400).json({success: false, messenge:"Group chat không tồn tại."});
-            const historyMessenge = await Messenge.find().sort({createdAt: -1}).skip(0+(req.params.page*200)).limit(200).populate("senderId", "fullname avatar")
+            const historyMessenge = await Messenge.find({revGroupId: groupId, visible_status: 'visible'}).sort({createdAt: -1}).skip(0+(req.params.page*200)).limit(200).populate("senderId", "fullname avatar")
             res.status(200).json({success: true, historyMessenge})
         }catch (error) {
             console.log(error);

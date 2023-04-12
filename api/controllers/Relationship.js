@@ -114,21 +114,24 @@ const relationshipController = {
             let relationship = await Relationship.findOne({
                 user1: user_res,
                 user2: user_accept,
-                status: 'friend'
             });
             let two_way_relationship = await Relationship.findOne({
                 user2: user_res,
                 user1: user_accept,
-                status: 'friend'
             });
             if (!relationship || !two_way_relationship) {
                 return res.status(400).json({success: false, messenge: "Thao tác không hợp lệ! Thông tin yêu cầu sai hoặc không tồn tại."});
             }
+            if (relationship.status == 'unfriend' || two_way_relationship.status == 'unfriend')
+                return res.status(400).json({success: false, messenge: "Thao tác không hợp lệ! Thông tin yêu cầu sai hoặc không tồn tại."});
+
             relationship.status = "unfriend";
+            relationship.update_at = Date.now;
             two_way_relationship.status = "unfriend";
+            two_way_relationship.update_at = Date.now;
             await relationship.save();
             await two_way_relationship.save();
-            res.status(200).json({success: true, messenge: "Hai user đã trở thành bạn bè"});
+            res.status(200).json({success: true, messenge: "Từ chối không thành bạn bè!"});
         } catch (error) {
             console.log(error);
             res.status(500).json({success: false, messenge: "Internal server error!"});
