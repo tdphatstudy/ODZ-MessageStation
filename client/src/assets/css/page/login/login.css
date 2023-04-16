@@ -1,20 +1,14 @@
-html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-}
-#root {
-    width: 100%;
-    height: 100%;
-}
+
 .wrapper-login-page{
     font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
-    height: 100%;
-    width: 100%;
     background-image: linear-gradient(45deg, blue, red);
     display: flex;
     align-items: center;
     justify-content: center;
+    width: auto;
+    min-height: 100vh;
+    overflow: hidden;
+    
 }
 .frame-login-page{
     font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
@@ -33,6 +27,12 @@ html, body {
     font-size: 36px;
     text-align: center;
     margin: 30px 0;
+}
+.progress-num-login-page {
+    align-items: center;
+    font-size: 18px;
+    font-weight: lighter;
+    text-align: center;
 }
 
 .input-login-page::placeholder{
@@ -64,9 +64,16 @@ html, body {
     background-color:#A28803  !important;
     border-radius: 25px; 
 }
+.button-login-page:disabled {
+    background-color: #7b7684 !important;
+}
 .button-login-page:hover{
     color: gray;
     background-color: #70600E !important;
+}
+.button-login-page:disabled:hover{
+    background-color: #7b7684 !important;
+    color: white;
 }
 .func-login-page {
     margin: 4px 0px;
@@ -79,4 +86,40 @@ html, body {
     display: flex;
     flex-direction: row;
 }
+.avatar-preview-login-page {
+    margin: 30px;
+    width: 250px;
+    height: 250px;
+    background-image: url('../../../image/default_avatar.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 100rem;
+}
+.avatar_upload_login_page {
+    opacity: 0;
+    display: none;
+}
+.avatar_upload_label_login_page {
+    padding: 10px 20px;
+    background-color: rgb(31, 31, 241);
+    color: white;
+    display: flex;
+    cursor: pointer;
+    align-items:  center;
+    border-radius: 15px;
 
+}
+.avatar_upload_label_login_page > span {
+    width: 25px;
+    height: 25px;
+    background-image: url('../../../icon/upload_white_127px.png');
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: auto;
+}
+.avatar_upload_label_login_page > div {
+    font-size: 18px;
+    margin: 0 10px;
+}

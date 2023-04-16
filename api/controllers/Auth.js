@@ -28,7 +28,7 @@ const AuthController = {
             res.status(500).json({success: false, message: 'Interval server error!'});
         }
     }, 
-    register: async(res, req, next) => {
+    register: async(req, res, next) => {
         try {
             const {fullname, username, password, repassword, gmail} = req.body;
             if (!username || !password) 
@@ -44,7 +44,7 @@ const AuthController = {
             if (existUser) return res.status(400).json({success: false, message: "Username đã tồn tại!"});
             const existGmail = await User.findOne({gmail: gmail});
             if (existGmail) return res.status(400).json({success: false, message: "Gmail đã tồn tại!"});
-            const hashPass = await sercurityTools.hash(password);
+            const hashPass = await argon2.hash(password);
             const auth_code = StringHandle.randomString(12);
             const newUser = new User({
                 fullname,
@@ -55,38 +55,38 @@ const AuthController = {
             });
             await newUser.save();
             const data = {fullname, auth_code}
-            sendEmail('register',data);
+            await sendEmail(newUser.gmail, 'register' ,data);
             res.status(200).json({sucess: true, message: "Đăng ký thành công. Vui lòng vào gmail để xác nhận."});
 
         }catch(error) {  
             console.log(error);
-            return res.status(500).json({success: false, message: 'Internal server error'});
+                res.status(500).json({success: false, message: 'Internal server error'});
         }
     },
-    forgetPassword: async(res, req, next) => {
+    forgetPassword: async(req, res, next) => {
         try {
-            const {username, gmail} = res.body;
-            if (username!="" || gmail!="")
+            const {username, gmail} = req.body;
+            if (username =="" || gmail == '')
                 return res.status(400).json({success: false, message: "Vui lòng không bỏ trống Username hoặc Gmail"})
             let existUser = await User.findOne({username: username, gmail: gmail});
             if (!existUser)
                 return res.status(400).json({success: false, message: "Username và Gmail không trùng khớp"});
             const newPassword = StringHandle.randomString(16);
-            const hashNewPass = argon2.hash(newPassword);
+            const hashNewPass = await argon2.hash(newPassword);
             existUser.password = hashNewPass;
-            existUser.update_at = Date.now;
-            await User.save();
+            existUser.update_at = new Date();
+            await existUser.save();
             const data = {fullname: existUser.fullname, new_pass: newPassword};
-            sendEmail('forget_password', data);
+            await sendEmail(existUser.gmail,'forget_password', data);
             return res.status(200).json({success: true, message: 'Mật khẩu mới đã được gửi vào gmail của bạn.'});
         }catch(error) {
             console.log(error);
             res.status(500).json({success: false, message: 'Internal server error'});
         }
     },
-    changePassword: async(res, req, next) => {
+    changePassword: async(req, res, next) => {
         try {
-            const {username, newPassword, reNewPassword} = res.body;
+            const {username, newPassword, reNewPassword} = req.body;
             if (username!="" || newPassword!="" || reNewPassword!="")
                 return res.status(400).json({success: false, message: "Vui lòng không bỏ trống các field"})
             let existUser = await User.findOne({username: username});
@@ -94,13 +94,30 @@ const AuthController = {
                 return res.status(400).json({success: false, message: "Tài khoản không tồn tại."});
             const hashNewPass = argon2.hash(newPassword);
             existUser.password = hashNewPass;
-            existUser.update_at = Date.now;
+            existUser.update_at = new Date();
             await User.save();
             return res.status(200).json({success: true, message: 'Mật khẩu đã được cập nhật thành công.'});
         }catch(error) {
             console.log(error);
             res.status(500).json({success: false, message: 'Internal server error'});
         }
+    },
+    confirmGmail: async(req, res, next) => {
+        try {
+            const {username ,auth_code} = req.body;
+            const existUser = await User.findOne({username: username});
+            if (!existUser) 
+                return res.status(400).json({sucess: false, message: "Tài khoản không tồn tại."});
+            if (auth_code != existUser.auth_code) 
+                return res.status(400).json({sucess: false, message: "Mã xác nhận không đúng vui lòng thử lại."});
+            existUser.auth_code = "";
+            existUser.account_status = 'active';
+            await existUser.save();
+            res.status(200).json({sucess: false, message: "Xác nhận gmail thành công."});
+        }catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, message: 'Internal server error'});
+        } 
     }
 } 
 module.exports = AuthController;

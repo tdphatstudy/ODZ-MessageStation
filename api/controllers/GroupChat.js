@@ -1,5 +1,3 @@
-const express = require('express');
-const router = express.Router();
 const GroupChat = require('../models/GroupChat.js');
 const User = require("../models/User.js");
 

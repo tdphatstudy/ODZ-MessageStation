@@ -1,5 +1,5 @@
 import "../../assets/css/component/quick-menu/quickmenu.css";
-const QuickMenu = () => {
+const QuickMenu = ({callback}) => {
     return (
         <div className="quick-menu-wrapper-profile">
             <div className="avatar-quick-menu-wrapper">
@@ -11,16 +11,16 @@ const QuickMenu = () => {
                 <div className="title-status-quick-menu-profile">Trạng thái</div>
                 <div className="status-quick-menu-profile">Trực tuyến</div>
             </div>
-            <div className="menu-quick-menu-profile">
-                <div className="option-quick-menu-profile">
+            <div className="menu-quick-menu-profile" >
+                <div className="option-quick-menu-profile" onClick={(e) => {callback('home')} }>
                     <div className="home-option-icon-quick-menu-profile"></div>
                     Trang chủ
                 </div>
-                <div className="option-quick-menu-profile">
+                <div className="option-quick-menu-profile" onClick={(e) => {callback('personal')} }>
                     <div className="personal-option-icon-quick-menu-profile"></div>
                     Thông tin cá nhân
                 </div>
-                <div className="option-quick-menu-profile">
+                <div className="option-quick-menu-profile" onClick={(e) => {callback('contact')} }>
                     <div className="contact-option-icon-quick-menu-profile"></div>
                         Liên hệ
                 </div>

@@ -10,5 +10,7 @@ router.post("/create", UserController.create);
 router.put("/role", UserController.changeRole);
 router.put("/account_status", UserController.changeAccountStatus);
 router.put("/status", UserController.changeOnlineStatus);
+router.put('/updateInfor', UserController.updateInfo);
+router.put('/updateAvatar', UserController.updateAvatar);
 
 module.exports = router;
