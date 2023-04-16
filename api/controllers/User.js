@@ -116,16 +116,16 @@ const UserController = {
             }
             let existUser = await User.findOne({username: username});
             if (!existUser) return res.status(404).json({success: false, message: `Tài khoản với username là ${username} không tồn tại.`});
-            if (existUser.account_status === "inactivity" && status === 'activity') 
-                return res.status(400).json({success: false, message: "Tài khoản chỉ có thể kích hoạt thủ công bằng cách xác nhận bằng đường link, được gửi thông qua gmail mà người dùng đã đăng ký."});
+            if (existUser.account_status === "inactivity" && status === 'active') 
+                return res.status(400).json({success: false, message: "Tài khoản chỉ có thể kích hoạt thủ công bằng cách xác nhận qua mã xác nhận, được gửi thông qua gmail mà người dùng đã đăng ký."});
             const old_status = existUser.account_status;
             existUser.account_status = status;
             existUser.update_at = Date.now;
             await existUser.save();
             const data = {fullname: existUser.fullname};
-            if (status === "lock") sendEmail('lock', data)
-            if (old_status === "lock" && status === 'activity') sendEmail('unlock', data);
-            res.status(200).json({success: true, message: "Thay trạng thái tài khoản thành công."})
+            if (status === "lock") sendEmail(existUser.gmail,'lock', data);
+            if (old_status === "lock" && status === 'active') sendEmail(existUser.gmail,'unlock', data);
+            res.status(200).json({success: true, message: "Thay trạng thái tài khoản thành công."});
         } catch (error) {
             console.log(error);
             res.status(500).json({success: false, message: "Internal server error!"});
@@ -142,7 +142,41 @@ const UserController = {
             existUser.status = status;
             existUser.update_at = Date.now;
             await existUser.save();
-            res.status(200).json({success: true, message: "Thay trạng thái thành công."})
+            res.status(200).json({success: true, message: "Thay trạng thái thành công."});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, message: "Internal server error!"});
+        }
+    },
+    updateInfo: async(req, res, next) => {
+        try {
+            const {username, gmail, zalo, fb, outlook, twitter, linkedin, github, phone} = req.body;
+            let existUser = await User.findOne({username: username});
+            if (!existUser) return res.status(404).json({success: false, message: `Tài khoản với username là ${username} không tồn tại.`});
+            if (gmail) existUser.gmail = gmail;
+            if (zalo) existUser.zalo = zalo;
+            if (fb) existUser.fb = fb;
+            if (outlook) existUser.outlook = outlook;
+            if (twitter) existUser.twitter = twitter;
+            if (linkedin) existUser.linkedin = linkedin;
+            if (github) existUser.github = github;
+            if (phone) existUser.phone = phone;
+            await existUser.save();
+            res.status(200).json({success: true, message: "Cập nhật thông tin thành công."});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, message: "Internal server error!"});
+        }
+    },
+    updateAvatar: async(req, res, next) => {
+        try {
+            const {username, avatar} = req.body;
+            let existUser = await User.findOne({username: username});
+            if (!existUser) return res.status(404).json({success: false, message: `Tài khoản với username là ${username} không tồn tại.`});
+            existUser.avatar = avatar;
+            await existUser.save();
+
+            res.status(200).json({success: true, message: "Cập nhật ảnh đại diện thành công."});
         } catch (error) {
             console.log(error);
             res.status(500).json({success: false, message: "Internal server error!"});

@@ -67,7 +67,7 @@
     flex: 1;
     background-image: linear-gradient(180deg, #9099A8, #CFD7E5); 
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     overflow-y: scroll;
 }
 .message-screen-display::-webkit-scrollbar {

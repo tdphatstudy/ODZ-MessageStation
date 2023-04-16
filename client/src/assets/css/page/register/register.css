@@ -11,6 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 .frame-register-page{
     font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
@@ -40,11 +41,11 @@
     
 }
 .input-register-page {
-    width: 60vw;
+    width: 50vw;
     font-size: 18px !important;
     font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif !important;
     align-items: center;
-    margin: 10px 20px;
+    margin: 10px 100px;
     padding: 8px 15px;
     border-radius: 25px !important;
     border: none;
@@ -74,5 +75,72 @@
 .store-login-account-register-page {
     display: flex;
     flex-direction: row;
+}
+.toast-success-wrapper-register-page {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    width: 500px;
+    min-height: 100px;
+    background-color: #4cb050;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px 0px;
+
+}
+.toast-fail-wrapper-register-page {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    width: 500px;
+    min-height: 100px;
+    background-color: #e51c24;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px 0px;
+
+}
+.icon-toast-register-page {
+    background-image: url("../../../icon/sucess_50px.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+    flex: 1;
+}
+.content-toast-register-page {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    color: white;
+}
+.title-toast-register-page {
+    font-weight: bold;
+}
+
+.close-toast-register-page{
+    background-image: url("../../../icon/close_50px.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    flex: 1;
+}
+@media screen and (max-width: 500px) {
+    .input-register-page {
+        width: 60vw;
+        margin: 10px 20px; 
+    }
+    .title-register-page {
+        font-size: 24px;
+    }
 }
 
