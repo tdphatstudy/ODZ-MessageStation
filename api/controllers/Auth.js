@@ -135,7 +135,7 @@ const AuthController = {
             if (!existUser)
                 return res.status(400).clearCookie('auth_token').json({success: false, message: 'Token có vấn đề vui lòng thử lại.'});
             if (existUser.account_status != 'active')
-                return res.status(200).json({success: true, message: 'UNACTIVITY'});
+                return res.status(200).json({success: true, message: 'UNACTIVITY', user: existUser});
             
             delete existUser.created_at;
             delete existUser.update_at;

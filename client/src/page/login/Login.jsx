@@ -1,8 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import "../../assets/css/page/login/login.css";
 import Toast from '../../component/toast/Toast';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 const default_avatar = require('../../assets/image/default_avatar.jpg');
 
 const Login = ({isLogin}) => {
@@ -11,7 +12,7 @@ const Login = ({isLogin}) => {
         username: undefined,
         password: undefined
     });
-    const [confirmGmail, setConfirmGmail] = useState(undefined);
+    const [confirmGmail, setConfirmGmail] = useState('');
     const [avatar, setAvatar] = useState(null);
     const [message, setMessage] = useState({
        success: null,
@@ -34,6 +35,7 @@ const Login = ({isLogin}) => {
         github: undefined,
         phone: undefined
     });
+    const {AuthState, setAuth } = useContext(AuthContext);
     const fileInput = useRef(null);
     const previewAvatar = useRef(null);
 
@@ -57,7 +59,15 @@ const Login = ({isLogin}) => {
             setMessage({success: 'Fail!', message: error.response.data.message});
         }
     }
-    const handleComfirmGmail = () =>{
+    const handleComfirmGmail = async() =>{
+        try {
+            const confirmReq = {username: AuthState.username, auth_code: confirmGmail};
+            const res = await axios.put('/auth/confirmGmail', confirmReq);
+            setDisabledBtn(true)
+            setStep(step + 1);
+        }catch (error) {
+            setMessage({success: 'Fail!', message: error.response.data.message});
+        }
 
     }
     const checkInfoPersonal = () => {
@@ -68,11 +78,56 @@ const Login = ({isLogin}) => {
             setDisabledBtn(true);
         }
     }
+    const handleUploadAvatar =  async() => {
+        try {
+            const formData = new  FormData();
+            formData.append('username', AuthState.username);
+            formData.append('file', avatar);
 
-    useEffect(() => {
-        if (step === 0 && isLogin === 'ACTIVITY') {
-            setStep(1)
+            const res = await axios.post('/resources/upload/file', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            if (res.data.success === true) {
+                const uploadAvatarReq = {username: AuthState.username, avatar: res.data.fileName};
+                const updateRes = await axios.put('/user/updateAvatar', uploadAvatarReq);
+                setDisabledBtn(true);
+                setStep(step + 1);
+            }
+
+
+        }  catch(error) {
+            setMessage({success: 'Fail!', message: error.response.data.message});
         }
+    }
+    const hanldeInfoPersonal = async() => {
+        try {
+            const inforPersonalReq = {username: AuthState.username, ...infoPersonal}
+            const res = await axios.put('/user/updateInfoPersonal', inforPersonalReq);
+            setDisabledBtn(true);
+            setStep(step + 1);
+
+        } catch(error) {
+            setMessage({success: 'Fail!', message: error.response.data.message});
+        }
+    }
+    const hanldeInfoContact = async() => {
+        try {
+            const contactReq = {username: AuthState.username, ...contact}
+            const res = await axios.put('/user/updateInfor', contactReq);
+            navigate('/profile');
+
+        } catch(error) {
+            setMessage({success: 'Fail!', message: error.response.data.message});
+        }
+    }
+
+   
+    useEffect(() => {
+        if (step === 0 && isLogin === 'UNACTIVITY') {
+            setStep(1)
+            setMessage({success: 'Success!', message: 'Đăng nhập thành công vui lòng thực hiện các bước sau để kích hoạt tài khoản.'})
+        }   
+        
         if (step === 2 ){
             const handleFileInputChange = (event) => {
                 const file = event.target.files[0];
@@ -83,6 +138,7 @@ const Login = ({isLogin}) => {
                 if (supportFile.includes(type)) {
                     if (file.size <= max_size_support) {
                         setAvatar(file);
+                        console.log(file)
                         setMessage({success: null, message: null});
                         setDisabledBtn(false);
                         reader.onload = (event) => {
@@ -106,10 +162,11 @@ const Login = ({isLogin}) => {
             };
             fileInput.current.addEventListener("change", handleFileInputChange);
             return () => {
-              fileInput.current.removeEventListener("change", handleFileInputChange);
+              fileInput?.current?.removeEventListener("change", handleFileInputChange);
             };
         }
       }, [step]);
+
       
     return (
         <div className="wrapper-login-page">
@@ -130,7 +187,7 @@ const Login = ({isLogin}) => {
                 <div className="title-login-page">ODZ MessageStation</div>
                 <div className="progress-num-login-page">Bước 1: Xác nhận Gmail.</div>
                 <input type="text" placeholder="Nhập mã code " className="input-login-page" onChange={(e) => setConfirmGmail(e.target.value)} value={confirmGmail} />
-                <input type="submit" value="Bước kế" className="button-login-page" disabled onClick={(e) => {setStep(step + 1)}} />
+                <input type="submit" value="Bước kế" className="button-login-page" disabled={confirmGmail.length === 0} onClick={() => {handleComfirmGmail()}} />
                 <div className="author-login-page">Product of Tran Dai Phat</div>
             </div>
             }
@@ -144,7 +201,7 @@ const Login = ({isLogin}) => {
                     <span></span>
                     <div>Upload</div>
                 </label> 
-                <input type="submit" value="Bước kế" className="button-login-page" disabled={disabledBtn} onClick={(e) => {setStep(step + 1); setDisabledBtn(true);}} />
+                <input type="submit" value="Bước kế" className="button-login-page" disabled={disabledBtn} onClick={() => {handleUploadAvatar()}} />
                 <div className="author-login-page">Product of Tran Dai Phat</div>
             </div>
             }
@@ -161,7 +218,7 @@ const Login = ({isLogin}) => {
                 <input type='date' className="input-login-page" placeholder="Ngày Sinh" value={!(isNaN(infoPersonal.birthdate?.getTime()))? infoPersonal.birthdate.toISOString().substr(0, 10): ''}  onChange={(e) => {setInfoPersonal({...infoPersonal, birthdate: new Date(e.target.value)}); checkInfoPersonal();}} />
                 <input type='text' className="input-login-page" placeholder="Công Việc Của Bạn (Ví dụ: Học Sinh, Lập Trình Viên,...)" value={infoPersonal.job || ''} onChange={(e) => {setInfoPersonal({...infoPersonal, job: e.target.value}); checkInfoPersonal();}} />
                 <input type='text' className="input-login-page" placeholder="Địa Chỉ"  value={infoPersonal.address} onChange={(e) => {setInfoPersonal({...infoPersonal, address: e.target.value}); checkInfoPersonal();}} />
-                <input type="submit" value="Bước kế" className="button-login-page" disabled={disabledBtn} onClick={(e) => setStep(step + 1)} />
+                <input type="submit" value="Bước kế" className="button-login-page" disabled={disabledBtn} onClick={() => hanldeInfoPersonal()} />
                 <div className="author-login-page">Product of Tran Dai Phat</div> 
             </div>
             }
@@ -176,7 +233,7 @@ const Login = ({isLogin}) => {
                 <input type='text' className="input-login-page" placeholder="Linkedin (nếu có)" value={contact.linkedin} onChange={(e) => setContact({...contact, linkedin: e.target.value})}/>
                 <input type='text' className="input-login-page" placeholder="Github (nếu có)" value={contact.github} onChange={(e) => setContact({...contact, github: e.target.value})}/>
                 <input type='text' className="input-login-page" placeholder="Số Điện Thoại (nếu có)"value={contact.phone} onChange={(e) => setContact({...contact, phone: e.target.value})} />
-                <input type="submit" value="Hoàn Tất" className="button-login-page"  />
+                <input type="submit" value="Hoàn Tất" className="button-login-page"  onClick={() => {hanldeInfoContact()}} />
                 <div className="author-login-page">Product of Tran Dai Phat</div> 
             </div>
             }

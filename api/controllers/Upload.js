@@ -17,7 +17,6 @@ const storage = multer.diskStorage({
   });
 const upload = multer({ storage });
 const uploadFile = (req, res, next) => {
-    console.log(req.body);
     upload.single('file')(req, res, (err) => {
       if (err instanceof multer.MulterError) {
         return res.status(400).json({success: false, message: "Lỗi upload file."});
