@@ -59,7 +59,7 @@ const UserSchema = new Schema({
     type: [String],
     default: []
   },
-  online_status: {
+ online_status: {
     type: String, 
     enum: ["offline", "online", "meeting", "sleeping"],
     default: "offline"
@@ -78,6 +78,25 @@ const UserSchema = new Schema({
     enum: ["User", "Administrator","CustomerSupport"],
     required: true,
     default: "User"
+  },
+  sex: {
+    type: String,
+    enum: ['Male', 'Female', 'Other']
+  },
+  job: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  birthdate: {
+    type: Date
+  },
+  offices: {
+    start_time: {type: Date},
+    end_time: {type: Date},
+    name: {type: String},
+    type: {type: String, enum: ['Trường Học', 'Đại Học', 'Bệnh Viện', 'Công Ty', 'Cơ Quan Công Quyền', 'Cửa Hàng']}
   },
   device_manager: [{
     deviceId: {

@@ -3,8 +3,8 @@ const user = require('../models/User.js');
 
 const authToken = async(res, req, next) => {
     try {
-        const token = req.headers.authorization.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_KEY);
+        const token = req.cookies.auth_token;
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         req.userData = decoded;
         next();
     }

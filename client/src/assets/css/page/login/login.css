@@ -20,6 +20,7 @@
     align-items: center;
     overflow: clip;
     border-radius: 25px;
+    padding: 0 15px;
 }
 .title-login-page {
     align-items: center;
@@ -53,6 +54,7 @@
     border: none;
     background-color: #f0f2f5;
     color: #7b7684 !important;
+    box-sizing: border-box;
 
 }
 .button-login-page {
@@ -123,3 +125,7 @@
     font-size: 18px;
     margin: 0 10px;
 }
+input[type="date"].input-login-page::before{
+    color: #7b7684;
+    content: attr(placeholder) !important;
+ }

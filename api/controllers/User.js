@@ -175,7 +175,6 @@ const UserController = {
             if (!existUser) return res.status(404).json({success: false, message: `Tài khoản với username là ${username} không tồn tại.`});
             existUser.avatar = avatar;
             await existUser.save();
-
             res.status(200).json({success: true, message: "Cập nhật ảnh đại diện thành công."});
         } catch (error) {
             console.log(error);

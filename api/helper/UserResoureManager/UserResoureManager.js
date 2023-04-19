@@ -2,9 +2,9 @@ const fs = require('fs');
 const fsPromise = require('fs/promises');
 
 const UserResoureManager = {
-    createUserResoure: async(username) => {
+    createUserResoureDirectory: async(username) => {
+        const dir_path = `resources/${username}`;
         try {
-            const dir_path = `resources/${username}`;
             await fsPromise.access(dir_path);
         } catch (error) {
             if (error.code == "ENOENT") {
@@ -12,6 +12,7 @@ const UserResoureManager = {
                     await fsPromise.mkdir(dir_path);
                     
                   } catch (err) {
+                    console.log(err)
                     throw new Error(`Lỗi tạo thư mục ${dir_path}`);
                   }
             } else {
