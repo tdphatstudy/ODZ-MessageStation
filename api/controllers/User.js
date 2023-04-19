@@ -180,6 +180,24 @@ const UserController = {
             console.log(error);
             res.status(500).json({success: false, message: "Internal server error!"});
         }
+    }, 
+    updateInfoPersonal: async(req, res, next) => {
+        try {
+            const {username, sex, birthdate, job, address} = req.body;
+            if (!sex || !birthdate || !job || !address) 
+                return res.status(400).json({success: false, message: 'Không bỏ trống các trường'})
+            let existUser = await User.findOne({username: username});
+            if (!existUser) return res.status(404).json({success: false, message: `Tài khoản với username là ${username} không tồn tại.`});
+            existUser.sex = sex;
+            existUser.birthdate = birthdate;
+            existUser.job = job;
+            existUser.address = address;
+            await existUser.save();
+            res.status(200).json({success: true, message: "Cập nhật thông tin thành công."});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, message: "Internal server error!"});
+        }
     }
 }
 

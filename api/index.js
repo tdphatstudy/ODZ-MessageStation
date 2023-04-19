@@ -31,6 +31,7 @@ app.use(express.json())
 connectToMongoDB();
 app.use(cors());
 app.use(cookiePaser())
+app.use(express.static('resources'));
 app.use("/api/user", UserRoute);
 app.use('/api/auth', AuthRoute);
 app.use('/api/message', MessageRoute);

@@ -9,11 +9,13 @@ import LoadingThemeOne from './page/loading/LoadingThemeOne';
 import LoadingThemeTwo from './page/loading/LoadingThemeTwo';
 import CallScreen from './page/call-screen/CallScreen';
 import ForgetPassword from './page/login/ForgetPassword';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { AuthContext } from './context/AuthContext'; 
 
 
 function App() {
+  const authContext = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState('UN_LOGIN');
   const LoginRoute = ({children}) => {
     if (isLogin === 'UN_LOGIN') {
@@ -31,26 +33,29 @@ function App() {
     }
     return children;
   };
-  const LoadAuth = async () => {
-    try {
-      const res = await axios.get('/auth/me');
-      console.log(res.data);
-      if (res.data.message === 'NO_TOKEN') {
+  
+  useEffect(()=>{
+    const LoadAuth = async () => {
+      try {
+        const res = await axios.get('/auth/me');
+        if (res.data.message === 'NO_TOKEN') {
+          setIsLogin('UN_LOGIN');
+        } else if (res.data.message === 'UNACTIVITY') {
+          setIsLogin('UNACTIVITY');
+          authContext.setAuth(res.data.user);
+        } else if (res.data.message === 'SUCCESS') {
+          setIsLogin('LOGIN');
+          authContext.setAuth(res.data.user);
+        }   
+  
+      } catch(error) {
         setIsLogin('UN_LOGIN');
-      } else if (res.data.message === 'UNACTIVITY') {
-        setIsLogin('UNACTIVITY');
-      } else if (res.data.message === 'SUCCESS') {
-        setIsLogin('LOGIN')
       }
-      
-
-    } catch(error) {
-      setIsLogin('UN_LOGIN');
     }
-  }
-  useEffect(() =>{
     LoadAuth();
-  })
+
+  }, [])
+ 
 
 
   return (

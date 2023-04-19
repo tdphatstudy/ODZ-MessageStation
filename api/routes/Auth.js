@@ -7,6 +7,6 @@ router.post('/login', AuthController.login);
 router.post('/register', AuthController.register);
 router.put('/forgetPassword', AuthController.forgetPassword);
 router.put('/changePassword', AuthController.changePassword);
-router.put('/comfirmGmail', AuthController.confirmGmail);
+router.put('/confirmGmail', AuthController.confirmGmail);
 
 module.exports = router;

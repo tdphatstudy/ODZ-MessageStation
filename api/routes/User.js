@@ -12,5 +12,6 @@ router.put("/account_status", UserController.changeAccountStatus);
 router.put("/status", UserController.changeOnlineStatus);
 router.put('/updateInfor', UserController.updateInfo);
 router.put('/updateAvatar', UserController.updateAvatar);
+router.put('/updateInfoPersonal', UserController.updateInfoPersonal);
 
 module.exports = router;
