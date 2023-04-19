@@ -3,8 +3,10 @@ const jwt = require('jsonwebtoken');
 const argon2 = require('argon2');
 const sendEmail = require('../helper/Email/Email.js');
 const StringHandle = require('../helper/StringHandle/StringHandle.js');
+const UserResoureManager = require('../helper/UserResoureManager/UserResoureManager.js');
 
 const AuthController = {
+
     login: async(req, res, next) => {
         try {
             const {username, password} = req.body;
@@ -12,11 +14,14 @@ const AuthController = {
                 return res.status(400).json({success: false, message: 'Vui lòng không bỏ trống Username.'});
             if (!password) 
                 return res.status(400).json({success: false, message: 'Vui lòng không bỏ trống Password.'});
-            const hassPassword = await argon2.hash(password);
-            const existUser = await User.findOne({username: username, password: hassPassword});
+            
+            const existUser = await User.findOne({username: username});
             if (!existUser) 
-                return res.status(400).json({success: false, message: 'Username hoặc Password sai! Vui lòng kiểm tra lại!'});
-            const accessToken = jwt.sign({userId: existUser._id}, process.env.ACCESS_TOKEN_SECRET)
+                return res.status(400).json({success: false, message: 'Username không tồn tại! Vui lòng kiểm tra lại!'});
+            const confirmPwd = await argon2.verify(existUser.password, password);
+            if (!confirmPwd) 
+                return res.status(400).json({success: false, message: 'Mật khẩu sai! Vui lòng kiểm tra lại!'});
+            const accessToken = jwt.sign({userId: existUser._id, username: existUser.username}, process.env.ACCESS_TOKEN_SECRET)
             if (existUser.account_status === "lock")
                 return res.status(400).json({success: false, message: 'Tài khoản của bạn đã bị khóa! Liên hệ với chúng tôi để biết thêm chi tiết.'});
             if (existUser.account_status === "inactivity")
@@ -54,13 +59,14 @@ const AuthController = {
                 auth_code
             });
             await newUser.save();
+            await UserResoureManager.createUserResoureDirectory(newUser.username);
             const data = {fullname, auth_code}
             await sendEmail(newUser.gmail, 'register' ,data);
             res.status(200).json({sucess: true, message: "Đăng ký thành công. Vui lòng vào gmail để xác nhận."});
 
         }catch(error) {  
             console.log(error);
-                res.status(500).json({success: false, message: 'Internal server error'});
+            res.status(500).json({success: false, message: 'Internal server error'});
         }
     },
     forgetPassword: async(req, res, next) => {
@@ -118,6 +124,32 @@ const AuthController = {
             console.log(error);
             res.status(500).json({success: false, message: 'Internal server error'});
         } 
-    }
+    }, 
+    me: async(req, res, next) => {
+        try {
+            const token = req.cookies.auth_token;
+            if (!token) 
+                return res.status(200).json({success: true, message: 'NO_TOKEN'});
+            const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+            const existUser = await User.findOne({_id: decoded.userId, username: decoded.username});
+            if (!existUser)
+                return res.status(400).clearCookie('auth_token').json({success: false, message: 'Token có vấn đề vui lòng thử lại.'});
+            if (existUser.account_status != 'active')
+                return res.status(200).json({success: true, message: 'UNACTIVITY'});
+            
+            delete existUser.created_at;
+            delete existUser.update_at;
+            delete existUser.device_manager;
+            delete existUser.password;
+            delete existUser.old_passwords;
+            delete existUser.auth_code;
+            delete existUser._id;
+            res.status(200).json({sucess: true, message: "SUCCESS", user: existUser});
+        }catch (error) {
+            console.log(error);
+            res.status(500).json({success: false, message: 'Internal server error'});
+        } 
+    }, 
+    
 } 
 module.exports = AuthController;

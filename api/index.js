@@ -7,7 +7,9 @@ const AuthRoute = require('./routes/Auth.js');
 const MessageRoute = require('./routes/Message.js');
 const RelationshipRoute = require('./routes/Relationship');
 const GroupChatRoute = require('./routes/Relationship.js');
+const Upload = require('./routes/Upload.js');
 const cors = require('cors')
+const cookiePaser = require('cookie-parser')
 
 /*Kết nối cơ sở dữ liệu*/
 const connectToMongoDB = async() => {
@@ -28,11 +30,13 @@ const connectToMongoDB = async() => {
 app.use(express.json())
 connectToMongoDB();
 app.use(cors());
+app.use(cookiePaser())
 app.use("/api/user", UserRoute);
 app.use('/api/auth', AuthRoute);
 app.use('/api/message', MessageRoute);
 app.use('/api/relationship', RelationshipRoute);
 app.use('/api/groupchat', GroupChatRoute);
+app.use('/api/resources/upload', Upload);
 
 app.use((req,res,next) => {
   res.status(404).json({success: false, message: "Route isn't exits!!!"});
