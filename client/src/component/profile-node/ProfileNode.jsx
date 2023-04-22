@@ -1,10 +1,10 @@
 import "../../assets/css/component/profile-node/profilenode.css";
 
-const ProfileNode = () => {
+const ProfileNode = ({name, value}) => {
     return (
         <div className="profile-node-wrapper">
-            <div className="profile-node-title">Họ Tên</div>
-            <div className="profile-node-value">Trần Đại Phát</div>
+            <div className="profile-node-title">{name}</div>
+            <div className="profile-node-value">{value}</div>
             <div className="profile-node-edit"></div>
         </div>
     

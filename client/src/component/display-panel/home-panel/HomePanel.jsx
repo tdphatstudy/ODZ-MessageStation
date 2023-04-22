@@ -1,8 +1,11 @@
 import "../../../assets/css/component/display-panel/home-panel/homepanel.css";
 import BackgroundTemplateOne from "./background-template/BackgroundTemplateOne";
 import TimelineNode from "../../timeline-node/TimelineNode";
+import { useContext, useRef, useEffect } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
 const HomePanel = () => {
+    const authState = useContext(AuthContext);
     return (
         <div className="home-panel-profile">
             <BackgroundTemplateOne />
@@ -26,11 +29,7 @@ const HomePanel = () => {
                 
             </div>
             <TimelineNode />
-            <TimelineNode />
-            <TimelineNode />
-            <TimelineNode />
-            <TimelineNode />
-            <TimelineNode />    
+            
             
         </div>
     );

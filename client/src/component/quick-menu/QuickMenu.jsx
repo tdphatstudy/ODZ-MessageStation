@@ -1,15 +1,23 @@
 import "../../assets/css/component/quick-menu/quickmenu.css";
+import { useContext, useRef, useEffect } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 const QuickMenu = ({callback}) => {
+    const authState = useContext(AuthContext);
+    const avatarQuickMenu = useRef(null);
+    useEffect(() => {
+        avatarQuickMenu.current.style.backgroundImage = `url(http://localhost:3001/${authState.AuthState.username}/${authState.AuthState.avatar})`;
+    }, [])
     return (
         <div className="quick-menu-wrapper-profile">
             <div className="avatar-quick-menu-wrapper">
-                <div className="avatar-quick-menu"></div>
-                <div className="name-quick-menu">Trần Đại Phát</div>
-                <div className="user-id-quick-menu">@tdphat</div>
+                <div className="avatar-quick-menu" ref={avatarQuickMenu}></div>
+                <div className="name-quick-menu">{authState.AuthState.fullname}</div>
+                <div className="user-id-quick-menu">@{authState.AuthState.username}</div>
             </div>
             <div className="status-quick-menu-wrapper-profile">
                 <div className="title-status-quick-menu-profile">Trạng thái</div>
-                <div className="status-quick-menu-profile">Trực tuyến</div>
+                <div className="status-quick-menu-profile">{authState.AuthState.online_status}</div>
             </div>
             <div className="menu-quick-menu-profile" >
                 <div className="option-quick-menu-profile" onClick={(e) => {callback('home')} }>

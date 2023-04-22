@@ -9,7 +9,10 @@ const AuthController = {
 
     login: async(req, res, next) => {
         try {
+            
             const {username, password} = req.body;
+            
+            
             if (!username) 
                 return res.status(400).json({success: false, message: 'Vui lòng không bỏ trống Username.'});
             if (!password) 
@@ -24,9 +27,18 @@ const AuthController = {
             const accessToken = jwt.sign({userId: existUser._id, username: existUser.username}, process.env.ACCESS_TOKEN_SECRET)
             if (existUser.account_status === "lock")
                 return res.status(400).json({success: false, message: 'Tài khoản của bạn đã bị khóa! Liên hệ với chúng tôi để biết thêm chi tiết.'});
-            if (existUser.account_status === "inactivity")
-                return res.cookie('auth_token', accessToken,{httpOnly: true, sameSite: 'strict'}).status(200).json({success: true, message: 'Đăng nhập lần đầu!'});
-            if (existUser.account_status === "activity")
+            if (existUser.account_status === "inactivity"){
+                delete existUser.created_at;
+                delete existUser.update_at;
+                delete existUser.device_manager;
+                delete existUser.password;
+                delete existUser.old_passwords;
+                delete existUser.auth_code;
+                delete existUser._id;
+                return res.cookie('auth_token', accessToken,{httpOnly: true, sameSite: 'strict'}).status(200).json({success: true, message: 'Đăng nhập lần đầu!', user: existUser});
+            }
+            
+            if (existUser.account_status === "active")
                 return res.cookie('auth_token', accessToken,{httpOnly: true, sameSite: 'strict'}).status(200).json({success: true, message: 'Đăng nhập thành công!'});
         } catch (error) {
             console.log(error);
@@ -137,14 +149,16 @@ const AuthController = {
             if (existUser.account_status != 'active')
                 return res.status(200).json({success: true, message: 'UNACTIVITY', user: existUser});
             
-            delete existUser.created_at;
-            delete existUser.update_at;
-            delete existUser.device_manager;
-            delete existUser.password;
-            delete existUser.old_passwords;
-            delete existUser.auth_code;
-            delete existUser._id;
-            res.status(200).json({sucess: true, message: "SUCCESS", user: existUser});
+            let user = existUser.toObject();
+            delete user.created_at;
+            delete user.update_at;
+            delete user.device_manager;
+            delete user.password;
+            delete user.old_passwords;
+            delete user.auth_code;
+            delete user._id;
+            console.log(user);
+            res.status(200).json({sucess: true, message: "SUCCESS", user: user});
         }catch (error) {
             console.log(error);
             res.status(500).json({success: false, message: 'Internal server error'});

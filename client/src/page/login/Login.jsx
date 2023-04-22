@@ -46,17 +46,13 @@ const Login = ({isLogin}) => {
             const isFullFill = Object.values(data).every(value => value !== undefined && value?.length != 0);
             if (isFullFill){
                 const res = await axios.post('/auth/login', data);
-                if (res.data.message === 'Đăng nhập thành công!') {
-                    navigate('/profile');
-                } else {
-                    setStep(step + 1);
-                }
+                window.location.reload(true)
             } else {
                 setMessage({success: 'Fail!', message: 'Vui lòng nhập đầy đủ các thông tin ở các trường.'});
             }
             
         } catch (error) {
-            setMessage({success: 'Fail!', message: error.response.data.message});
+            setMessage({success: 'Fail!', message: error?.response.data.message});
         }
     }
     const handleComfirmGmail = async() =>{
@@ -66,7 +62,7 @@ const Login = ({isLogin}) => {
             setDisabledBtn(true)
             setStep(step + 1);
         }catch (error) {
-            setMessage({success: 'Fail!', message: error.response.data.message});
+            setMessage({success: 'Fail!', message: error?.response.data.message});
         }
 
     }
@@ -93,8 +89,6 @@ const Login = ({isLogin}) => {
                 setDisabledBtn(true);
                 setStep(step + 1);
             }
-
-
         }  catch(error) {
             setMessage({success: 'Fail!', message: error.response.data.message});
         }

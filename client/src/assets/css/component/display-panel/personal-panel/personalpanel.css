@@ -17,7 +17,13 @@
     margin-bottom: 10px;
     align-items: flex-end;
     justify-content: space-between;
-    flex-wrap: wrap;
+    
+}
+.avatar_upload_login_page {
+    opacity: 0;
+    display: hidden;
+    width: 1px;
+    height: 1px;
 }
 .personal-panel-avatar-image {
     height: 200px;
@@ -29,6 +35,7 @@
     background-position: center center;
     background-repeat: no-repeat;
     margin: 10px 10px;
+    display: block;
 
 }
 .personal-panel-avatar-wrapper > :not(:first-child) {
@@ -39,6 +46,7 @@
     font-size: 18px;
     display: flex;
     margin: 10px 0px;
+    z-index: 0;
 }
 .personal-panel-avatar-wrapper > :not(:first-child):hover {
     background-color: lightgray;
