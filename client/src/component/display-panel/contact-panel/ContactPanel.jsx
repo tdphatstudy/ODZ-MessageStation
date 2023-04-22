@@ -1,6 +1,9 @@
 import "../../../assets/css/component/display-panel/contact-panel/contactpanel.css";
+import { useContext, useRef, useEffect, useState } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
 const ContactPanel = () =>  {
+    const authState = useContext(AuthContext);
     return (
         <div className="contact-panel-wrapper">
             <div className="contact-panel-title">Contact</div>
@@ -10,7 +13,7 @@ const ContactPanel = () =>  {
                     <div className="contact-panel-phone-title">Điện thoại</div>
                 </div>
                 <div className="contact-panel-phone-body-wrapper">
-                    <div className="contact-panel-phone-value">09934845424</div>
+                    <div className="contact-panel-phone-value">{authState.AuthState.phone || 'Chưa Cập Nhật'}</div>
                     <div className="contact-panel-edit"></div>
                 </div>
             </div>
@@ -20,7 +23,7 @@ const ContactPanel = () =>  {
                     <div className="contact-panel-gmail-title">Gmail</div>
                 </div>
                 <div className="contact-panel-gmail-body-wrapper">
-                    <div className="contact-panel-gmail-value">trandaiphat@gmail.com</div>
+                    <div className="contact-panel-gmail-value">{authState.AuthState.gmail || 'Chưa Cập Nhật'}</div>
                     <div className="contact-panel-edit"></div>
                 </div>
             </div>
@@ -30,7 +33,7 @@ const ContactPanel = () =>  {
                     <div className="contact-panel-outlook-title">Outlook</div>
                 </div>
                 <div className="contact-panel-outlook-body-wrapper">
-                    <div className="contact-panel-outlook-value">phattran@outlook.com.vn</div>
+                    <div className="contact-panel-outlook-value">{authState.AuthState.outlook || 'Chưa Cập Nhật'}</div>
                     <div className="contact-panel-edit"></div>
                 </div>
             </div>
@@ -40,7 +43,7 @@ const ContactPanel = () =>  {
                     <div className="contact-panel-facebook-title">Facebook</div>
                 </div>
                 <div className="contact-panel-facebook-body-wrapper">
-                    <div className="contact-panel-facebook-value">fb.com/phattran</div>
+                    <div className="contact-panel-facebook-value">{authState.AuthState.fb || 'Chưa Cập Nhật'}</div>
                     <div className="contact-panel-edit"></div>
                 </div>
             </div>
@@ -50,7 +53,7 @@ const ContactPanel = () =>  {
                     <div className="contact-panel-twitter-title">Twitter</div>
                 </div>
                 <div className="contact-panel-twitter-body-wrapper">
-                    <div className="contact-panel-twitter-value">twitter.com/phattran</div>
+                    <div className="contact-panel-twitter-value">{authState.AuthState.twitter || 'Chưa Cập Nhật'}</div>
                     <div className="contact-panel-edit"></div>
                 </div>
             </div>
@@ -60,7 +63,7 @@ const ContactPanel = () =>  {
                     <div className="contact-panel-linkedin-title">Linkedin</div>
                 </div>
                 <div className="contact-panel-linkedin-body-wrapper">
-                    <div className="contact-panel-linkedin-value">linkedin.com/phattran</div>
+                    <div className="contact-panel-linkedin-value">{authState.AuthState.linkedin || 'Chưa Cập Nhật'}</div>
                     <div className="contact-panel-edit"></div>
                 </div>
             </div>
@@ -70,7 +73,7 @@ const ContactPanel = () =>  {
                     <div className="contact-panel-zalo-title">Zalo</div>
                 </div>
                 <div className="contact-panel-zalo-body-wrapper">
-                    <div className="contact-panel-zalo-value">zalo.vn/phattan</div>
+                    <div className="contact-panel-zalo-value">{authState.AuthState.zalo || 'Chưa Cập Nhật'}</div>
                     <div className="contact-panel-edit"></div>
                 </div>
             </div>
@@ -80,7 +83,7 @@ const ContactPanel = () =>  {
                     <div className="contact-panel-github-title">Github</div>
                 </div>
                 <div className="contact-panel-github-body-wrapper">
-                    <div className="contact-panel-github-value">phattran</div>
+                    <div className="contact-panel-github-value">{authState.AuthState.github || 'Chưa Cập Nhật'}</div>
                     <div className="contact-panel-edit"></div>
                 </div>
             </div>
