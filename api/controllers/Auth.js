@@ -156,8 +156,6 @@ const AuthController = {
             delete user.password;
             delete user.old_passwords;
             delete user.auth_code;
-            delete user._id;
-            console.log(user);
             res.status(200).json({sucess: true, message: "SUCCESS", user: user});
         }catch (error) {
             console.log(error);

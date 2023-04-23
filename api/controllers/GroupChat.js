@@ -7,13 +7,13 @@ const GroupChatController = {
             const {user1, user2} = req.body;
             const existUser1 = await User.findById(user1);
             if (!existUser1) 
-                return res.status(400).json({success: false, message: `${existUser1.fullname} không tồn tại để thực hiện thao tác này.`});
-            if (existUser1.account_status != "activity") 
+                return res.status(400).json({success: false, message: `User không tồn tại để thực hiện thao tác này.`});
+            if (existUser1.account_status != "active") 
                 return res.status(400).json({success: false, message: `Tài khoản ${existUser1.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`});
             const existUser2 = await User.findById(user2);
             if (!existUser2) 
-                return res.status(400).json({success: false, message: `${existUser2.fullname} không tồn tại để thực hiện thao tác này.`});
-            if (existUser2.account_status != "activity") 
+                return res.status(400).json({success: false, message: `User không tồn tại để thực hiện thao tác này.`});
+            if (existUser2.account_status != "active") 
                 return res.status(400).json({success: false, message: `Tài khoản ${existUser2.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`});
             const relationshipGroup = new GroupChat({
                 name: {name_type: 'refs'},
@@ -33,8 +33,8 @@ const GroupChatController = {
             members.forEach(async(element) => {
                 let existUser = await User.findById(element);
                 if (!existUser) 
-                    return res.status(400).json({success: false, message: `${existUser.fullname} không tồn tại để thực hiện thao tác này.`});
-                if (existUser.account_status != "activity") 
+                    return res.status(400).json({success: false, message: `User không tồn tại để thực hiện thao tác này.`});
+                if (existUser.account_status != "active") 
                     return res.status(400).json({success: false, message: `Tài khoản ${existUser.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`}); 
             });
             const publicGroup = new GroupChat({
@@ -61,8 +61,8 @@ const GroupChatController = {
                 return res.status(400).json({success: false, message: `Nhóm không phải là Public để thực hiện thao tác này.`})
             const existUser = await User.findById(newMember);
             if (!existUser) 
-                return res.status(400).json({success: false, message: `${existUser.fullname} không tồn tại để thực hiện thao tác này.`});
-            if (existUser.account_status != "activity") 
+                return res.status(400).json({success: false, message: `User không tồn tại để thực hiện thao tác này.`});
+            if (existUser.account_status != "active") 
                 return res.status(400).json({success: false, message: `Tài khoản ${existUser.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`}); 
             existGroup.members.push(newMember);
             await existGroup.save();
@@ -82,8 +82,8 @@ const GroupChatController = {
                 return res.status(400).json({success: false, message: `Nhóm không phải là Public để thực hiện thao tác này.`})
             const existUser = await User.findById(newAdmin);
             if (!existUser) 
-                return res.status(400).json({success: false, message: `${existUser.fullname} không tồn tại để thực hiện thao tác này.`});
-            if (existUser.account_status != "activity") 
+                return res.status(400).json({success: false, message: `User không tồn tại để thực hiện thao tác này.`});
+            if (existUser.account_status != "active") 
                 return res.status(400).json({success: false, message: `Tài khoản ${existUser.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`}); 
             const existMember = existGroup.members.some((value) => {
                 return value == newAdmin;
@@ -97,6 +97,21 @@ const GroupChatController = {
             console.log(error);
             res.status(500).json({success: false, message: "Interval server error!"})
         }
+    },
+    getRelationshipsGroupByUsername: async(req, res, next) => {
+        try{
+            const existUser = await User.findById(req.params.id);
+            if (!existUser) 
+                return res.status(400).json({success: false, message: `User không tồn tại để thực hiện thao tác này.`});
+            if (existUser.account_status != "active") 
+                return res.status(400).json({success: false, message: `Tài khoản ${existUser.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`}); 
+            const existGroup = await GroupChat.find({members: {$in: [req.params.id]}}).populate('members', '_id username fullname avatar online_status');
+            res.status(200).json({success: false, message: "Danh sách các groupchat", groups: existGroup});
+        } catch(error) {
+            console.log(error);
+            res.status(500).json({success: false, message: "Interval server error!"})
+        }
+
     }
 }
 module.exports = GroupChatController;

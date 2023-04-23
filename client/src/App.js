@@ -19,7 +19,6 @@ function App() {
   const [isLogin, setIsLogin] = useState('UN_LOGIN');
   const LoginRoute = ({children}) => {
     if (isLogin === 'UN_LOGIN') {
-      console.log('index');
       return <Navigate to='/login' replace />;
     } else if (isLogin === 'UNAVTIVITY') {
       return <Navigate to='/login' replace/>;
@@ -28,7 +27,7 @@ function App() {
   };
   const UnLoginRoute = ({children}) => {
     if (isLogin === 'LOGIN') {
-      return <Navigate to='/profile' replace />;
+      return <Navigate to='/chat' replace />;
     } else if (isLogin === 'UNAVTIVITY') {
       return <Navigate to='/login' replace/>;
     }
@@ -38,7 +37,7 @@ function App() {
   const LoginLazy = lazy(() => import('./page/login/Login'));
   const RegisterLazy = lazy(() => import('./page/register/Register'));
   const ProfileLazy = lazy(() => import('./page/profile/Profile'));
-  const ChatScreenLazy = lazy(() => import('./page/call-screen/CallScreen'));
+  const ChatScreenLazy = lazy(() => import('./page/chatting-mode/ChatScreen'));
   
   useEffect(()=>{
     const LoadAuth = async () => {
