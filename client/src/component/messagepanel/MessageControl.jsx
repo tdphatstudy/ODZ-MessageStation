@@ -1,33 +1,53 @@
 import "../../assets/css/component/message-panel/messagecontrol.css";
 import FriendItem from "../friend-item/FriendItem";
 import { useEffect, useState, useRef, useContext } from "react";
-import Toast from '../../component/toast/Toast';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import LoadingThemeOne from "../../page/loading/LoadingThemeOne";
 
-const MessageControl = ({setMessage}) => {
+const MessageControl = ({setSelectGroup,setMessage}) => {
     const navigate = useNavigate();
     const authState = useContext(AuthContext);
     const [typeList, setTypeList] = useState('friend');
     const FriendBtn = useRef(null);
     const GroupBtn = useRef(null);
-    const [FriendList, setFriendList] = useState(null);
-    const [GroupList, setGroupList] = useState(null);
+    const [GroupChatList, setGroupChatList] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(()=>{
         const loadView = async() => {
+            setIsLoading(true);
             try {
                 if (typeList === 'friend') {
-                    const res =  await axios.get(`/relationship/friend/user/${authState.AuthState._id}`);
+                    const res =  await axios.get(`/groupchat/relationshipGroups/${authState.AuthState._id}`);
+                    if (res.data.success === true) {
+                        const relationshipGroups = res.data.groups;
+                        setGroupChatList(relationshipGroups.map((value)=> {
+                            const {name, avatar, members, ...other} = value;
+                            const friend = members.find((member) => {return member._id != authState.AuthState._id});
+                            return {name: friend.fullname, avatar: friend.avatar, friend: friend, ...other};
+                        }))                 
+                    }
                 } else if (typeList === 'group') {
-                    const res =  await axios.get(`/relationship/friend//${authState.AuthState._id}`);
+                    const res =  await axios.get(`/groupchat/publicGroups/${authState.AuthState._id}`);
+                    if (res.data.success === true) {
+                        const publicGroups = res.data.groups;
+                        setGroupChatList(publicGroups.map((value)=> {
+                            const {name, avatar, members, ...other} = value;
+                            const friend = members.find((member) => {return member._id != authState.AuthState._id});
+                            return {name: friend.fullname, avatar: friend.avatar, friend: friend, ...other};
+                        }))                 
+                    }
 
                 }
 
             } catch(error) {
                 console.log(error);
                 setMessage({success:'Fail!', message:  'Lỗi hệ thống! Vui lòng thử lại trong giây lát.'})
-            }
+            }finally {
+                setIsLoading(false); 
+              }
         }
         loadView()
     }, [typeList]);
@@ -62,20 +82,8 @@ const MessageControl = ({setMessage}) => {
                     </div>
                 </div>
                 <div className="message-control-chat-box-view">
-                    <FriendItem />  
-                    <FriendItem />
-                    <FriendItem />  
-                    <FriendItem />
-                    <FriendItem />  
-                    <FriendItem />
-                    <FriendItem />  
-                    <FriendItem />
-                    <FriendItem />  
-                    <FriendItem />
-                    <FriendItem />  
-                    <FriendItem />
-                    <FriendItem />  
-                    <FriendItem />
+                    {GroupChatList === null && <LoadingThemeOne />}
+                    {GroupChatList !== null && GroupChatList.map((value)=> {return <FriendItem item={value} key={value._id} setSelectGroup={setSelectGroup} />})}
                 </div>
             </div>
         </div>

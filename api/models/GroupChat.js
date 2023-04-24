@@ -27,6 +27,11 @@ const groupChatSchema = new mongoose.Schema({
       ref: 'User'
     }
   ],
+  lastMessage: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Message',
+    default: null
+  },
   type: {
     type: String,
     enum: ['Relationship', 'Public'],

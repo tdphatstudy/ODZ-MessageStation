@@ -105,8 +105,23 @@ const GroupChatController = {
                 return res.status(400).json({success: false, message: `User không tồn tại để thực hiện thao tác này.`});
             if (existUser.account_status != "active") 
                 return res.status(400).json({success: false, message: `Tài khoản ${existUser.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`}); 
-            const existGroup = await GroupChat.find({members: {$in: [req.params.id]}}).populate('members', '_id username fullname avatar online_status');
-            res.status(200).json({success: false, message: "Danh sách các groupchat", groups: existGroup});
+            const existGroup = await GroupChat.find({members: {$in: [req.params.id]}, type: 'Relationship'}).populate('members', '_id username fullname avatar online_status').populate('lastMessage');
+            res.status(200).json({success: true, message: "Danh sách các groupchat", groups: existGroup});
+        } catch(error) {
+            console.log(error);
+            res.status(500).json({success: false, message: "Interval server error!"})
+        }
+
+    },
+    getPublicGroupByUsername: async(req, res, next) => {
+        try{
+            const existUser = await User.findById(req.params.id);
+            if (!existUser) 
+                return res.status(400).json({success: false, message: `User không tồn tại để thực hiện thao tác này.`});
+            if (existUser.account_status != "active") 
+                return res.status(400).json({success: false, message: `Tài khoản ${existUser.fullname} có thể chưa được kích hoạt hoặc đang bị khóa. Vui lòng liên hệ với chúng tôi để biết thêm chi tiết`}); 
+            const existGroup = await GroupChat.find({members: {$in: [req.params.id]}, type: 'Public'}).populate('members', '_id username fullname avatar online_status').populate('lastMessage');
+            res.status(200).json({success: true, message: "Danh sách các groupchat", groups: existGroup});
         } catch(error) {
             console.log(error);
             res.status(500).json({success: false, message: "Interval server error!"})

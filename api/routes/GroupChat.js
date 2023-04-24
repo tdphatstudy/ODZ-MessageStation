@@ -3,6 +3,7 @@ const router = express.Router();
 const GroupChatController = require('../controllers/GroupChat.js');
 
 router.get('/relationshipGroups/:id', GroupChatController.getRelationshipsGroupByUsername);
+router.get('/publicGroups/:id', GroupChatController.getPublicGroupByUsername);
 router.post('/create/relationshipGroup', GroupChatController.createRelationshipGroup);
 router.post('/create/publicGroup', GroupChatController.createPublicGroup);
 router.put('/menber/add', GroupChatController.addMember);
