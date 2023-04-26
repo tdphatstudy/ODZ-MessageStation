@@ -38,7 +38,8 @@
     background-image: url("../../../../icon/edit_32px.png");
     background-position: center;
     background-repeat: no-repeat; 
-    background-size: contain;  
+    background-size: contain; 
+    cursor: pointer;
 }
 .contact-panel-phone-icon {
     background-image: url("../../../../icon/phone_32px.png");

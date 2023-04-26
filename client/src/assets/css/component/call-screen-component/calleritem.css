@@ -1,7 +1,8 @@
 .caller-item-wrapper {
-    width: calc(25% - 30px);
+    min-width: calc(25% - 30px);
     margin: 15px 15px;
-    height: auto;
+    min-height: auto;
+    flex: 1;
     padding: 20px 0px;
     background-color: #666666;
     border-radius: 25px;
@@ -10,6 +11,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    cursor: pointer;
 }
 .caller-item-img {
     height: 100px;

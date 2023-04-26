@@ -46,6 +46,7 @@ const Login = ({isLogin}) => {
             const isFullFill = Object.values(data).every(value => value !== undefined && value?.length != 0);
             if (isFullFill){
                 const res = await axios.post('/auth/login', data);
+                localStorage.setItem('user', JSON.stringify(res.data.user));
                 window.location.reload(true)
             } else {
                 setMessage({success: 'Fail!', message: 'Vui lòng nhập đầy đủ các thông tin ở các trường.'});

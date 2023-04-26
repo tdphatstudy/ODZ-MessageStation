@@ -94,12 +94,12 @@ const PersonalPanel = ({setMessage}) => {
             <div className="personal-panel-avatar-wrapper" >
                 <div className="personal-panel-avatar-image" ref={avatarPersonalPanel}></div>
                 <input type="file" name="avatar_upload" id="avatar_upload" className="avatar_upload_login_page" ref={fileInput}/>
-                <label className="personal-panel-avatar-upload" for='avatar_upload'>Upload</label>
+                <label className="personal-panel-avatar-upload" htmlFor='avatar_upload'>Upload</label>
                 <div className="personal-panel-avatar-theme">Theme</div>
                 <div className="personal-panel-avatar-online-search">Tìm kiếm</div>
             </div>
             
-        {personalInfo && personalInfo.map((value)=> <ProfileNode name={value[0]} value={value[1]} />)}
+        {personalInfo && personalInfo.map((value)=> <ProfileNode name={value[0]} value={value[1] } key={value} />)}
             
         </div>
     );

@@ -47,6 +47,7 @@
     display: flex;
     margin: 10px 0px;
     z-index: 0;
+    cursor: pointer;
 }
 .personal-panel-avatar-wrapper > :not(:first-child):hover {
     background-color: lightgray;

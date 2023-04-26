@@ -16,28 +16,7 @@ const CallScreen = () => {
                 <CallerItem />
                 <CallerItem />
                 <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />
-                <CallerItem />            
+                
             </div>
             <div className="own-call-item">
                 <div className="own-call-item-avatar"></div>
