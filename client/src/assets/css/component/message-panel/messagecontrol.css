@@ -21,6 +21,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     margin: 20px 0px;
+    cursor: pointer;
 }
 .message-control-chat-box {
     background-image: url("../../../icon/group_message_48px.png");
@@ -67,6 +68,9 @@
     position: absolute;
     left: 10%;
     bottom: 5%;
+}
+.message-control-relationship-panel-tags {
+    cursor: pointer;
 }
 .message-control-relationship-panel-tags > :not(:first-child) {
     margin-left: 20px;

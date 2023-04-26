@@ -84,6 +84,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    cursor: pointer;
 }
 .message-screen-title-bar-call-func {
     background-image: url("../../../icon/phone_50px_blue.png");
@@ -129,6 +130,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     margin: 0px 15px;
+    cursor: pointer;
 }
 .message-screen-voice-input {
     background-image: url("../../../icon/microphone_50px.png");

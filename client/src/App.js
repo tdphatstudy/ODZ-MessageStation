@@ -16,9 +16,9 @@ import { AuthContext } from './context/AuthContext';
 
 function App() {
   const authContext = useContext(AuthContext);
-  const [isLogin, setIsLogin] = useState('UN_LOGIN');
+  const [isLogin, setIsLogin] = useState(authContext.AuthState === null? 'UN_LOGIN' : 'LOGIN');
   const LoginRoute = ({children}) => {
-    if (isLogin === 'UN_LOGIN') {
+    if (authContext.AuthState !== null) {
       return <Navigate to='/login' replace />;
     } else if (isLogin === 'UNAVTIVITY') {
       return <Navigate to='/login' replace/>;
@@ -27,9 +27,7 @@ function App() {
   };
   const UnLoginRoute = ({children}) => {
     if (isLogin === 'LOGIN') {
-      return <Navigate to='/chat' replace />;
-    } else if (isLogin === 'UNAVTIVITY') {
-      return <Navigate to='/login' replace/>;
+      return <Navigate to='/profile' replace />;
     }
     return children;
   };
@@ -41,37 +39,55 @@ function App() {
   
   useEffect(()=>{
     const LoadAuth = async () => {
-      try {
+     
+      if (isLogin === 'UN_LOGIN') {
+        try {
+          
         const res = await axios.get('/auth/me');
         if (res.data.message === 'NO_TOKEN') {
           setIsLogin('UN_LOGIN');
+          localStorage.setItem('user', 'null');
         } else if (res.data.message === 'UNACTIVITY') {
           setIsLogin('UNACTIVITY');
+          localStorage.setItem('user', JSON.stringify(res.data.user));
           authContext.setAuth(res.data.user);
-        } else if (res.data.message === 'SUCCESS') {
+          
+        } else if (res.data.message === 'SUCCESS'){
+          localStorage.setItem('user', JSON.stringify(res.data.user));
           setIsLogin('LOGIN');
           authContext.setAuth(res.data.user);
+          
         }   
   
       } catch(error) {
         setIsLogin('UN_LOGIN');
+        localStorage.setItem('user', 'null');
+      }
       }
     }
+    if (authContext.AuthState === null) {
+      setIsLogin('UN_LOGIN');
+    } else if (authContext.AuthState.account_status === 'unactivity') {
+      setIsLogin('UNACTIVITY');
+    } else {
+      setIsLogin('LOGIN');
+    }
+    authContext.setAuth(JSON.parse(localStorage.getItem('user')));
     LoadAuth();
 
   }, [])
  
 
-  console.log(isLogin)
+
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path='/' element={<LoadingThemeTwo />} /> 
         <Route exact path='/login' element={<UnLoginRoute><Login isLogin={isLogin} /></UnLoginRoute>} />
         <Route exact path='/register' element={<UnLoginRoute><Register /></UnLoginRoute>} />
-        <Route exact path='/profile' element={<LoginRoute><Suspense fallback={<LoadingThemeOne />}><ProfileLazy /></Suspense></LoginRoute>} />
-        <Route  exact path='/chat' element={<LoginRoute><Suspense fallback={<LoadingThemeOne />}><ChatScreenLazy /></Suspense></LoginRoute>} />
-        <Route path="/call" element={<LoginRoute><Suspense fallback={<LoadingThemeOne />}><CallScreenLazy /></Suspense></LoginRoute>} />
+        <Route exact path='/profile' element={isLogin === 'LOGIN'? <Profile />: <Navigate to='/login' replace/>} />
+        <Route  exact path='/chat' element={isLogin === 'LOGIN'? <ChatScreen />: <Navigate to='/login' replace/>} />
+        <Route path="/call" element={isLogin === 'LOGIN'? <CallScreen />: <Navigate to='/login' replace/>} />
         <Route exact path='/forget-password' element={<UnLoginRoute><ForgetPassword /></UnLoginRoute>} />
         <Route path="*" element={<Error404 />} />
       </Routes>

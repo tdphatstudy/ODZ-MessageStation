@@ -2,7 +2,7 @@ import "../../assets/css/component/quick-menu/quickmenu.css";
 import { useContext, useRef, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
-const QuickMenu = ({callback}) => {
+const QuickMenu = ({callback, setMessage}) => {
     const authState = useContext(AuthContext);
     const avatarQuickMenu = useRef(null);
     useEffect(() => {
@@ -32,15 +32,15 @@ const QuickMenu = ({callback}) => {
                     <div className="contact-option-icon-quick-menu-profile"></div>
                         Liên hệ
                 </div>
-                <div className="option-quick-menu-profile">
+                <div className="option-quick-menu-profile" onClick={(e) => {setMessage({success: 'Fail!', message: 'Tính năng mới chưa được ra mắt. Chúng tôi sẽ có gắn hoàn thành sớm nhất có thể.'})}}>
                     <div className="relationship-option-icon-quick-menu-profile"></div>
                     Bạn bè và nhóm
                 </div>
-                <div className="option-quick-menu-profile">
+                <div className="option-quick-menu-profile" onClick={(e) => {setMessage({success: 'Fail!', message: 'Tính năng mới chưa được ra mắt. Chúng tôi sẽ có gắn hoàn thành sớm nhất có thể.'})}}>
                     <div className="dark-mode-option-icon-quick-menu-profile"></div>
                         Dark mode: OFF
                 </div>
-                <div className="option-quick-menu-profile">
+                <div className="option-quick-menu-profile" onClick={(e) => {setMessage({success: 'Fail!', message: 'Tính năng mới chưa được ra mắt. Chúng tôi sẽ có gắn hoàn thành sớm nhất có thể.'})}}>
                     <div className="setting-option-icon-quick-menu-profile"></div>
                     Cài đặt hệ thống
                 </div>

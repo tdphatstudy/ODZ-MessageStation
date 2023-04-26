@@ -21,6 +21,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     margin-right: 15px;
+    cursor: pointer;
 }
 .profile-node-access {
     height: 24px;

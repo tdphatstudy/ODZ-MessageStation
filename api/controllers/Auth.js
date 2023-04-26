@@ -39,7 +39,7 @@ const AuthController = {
             }
             
             if (existUser.account_status === "active")
-                return res.cookie('auth_token', accessToken,{httpOnly: true, sameSite: 'strict'}).status(200).json({success: true, message: 'Đăng nhập thành công!'});
+                return res.cookie('auth_token', accessToken,{httpOnly: true, sameSite: 'strict'}).status(200).json({success: true, message: 'Đăng nhập thành công!',user: existUser});
         } catch (error) {
             console.log(error);
             res.status(500).json({success: false, message: 'Interval server error!'});

@@ -45,6 +45,7 @@
     align-items: center;
     padding: 5px 10px;
     border-radius: 25px;
+    cursor: pointer;
 }
 .icon-like-wrapper-interact-bar-timeline-node {
     background-image: url("../../../icon/like_24px.png");

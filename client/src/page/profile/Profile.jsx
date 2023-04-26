@@ -23,7 +23,7 @@ const Profile = () => {
         <div className="wrapper-profile">
             <NavarBar />
             <div className="body-profile">
-                <QuickMenu callback={handleSetShownPanel} />
+                <QuickMenu callback={handleSetShownPanel} setMessage={setMessage} />
                 {display === 'home' && <HomePanel />}
                 {display === 'personal' && <PersonalPanel setMessage={setMessage} />}
                 {display === 'contact' && <ContactPanel />}

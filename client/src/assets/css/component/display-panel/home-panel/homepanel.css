@@ -25,6 +25,7 @@
     align-items: center;
     padding: 5px 10px;
     border-radius: 25px;
+    cursor: pointer;
    
 }
 .icon-following-wrapper-menu-bar-profile {
