@@ -21,7 +21,8 @@ const MessageController = {
                 attachments: attachments
             });
             await newMessage.save();
-            res.status(200).json({success: true, message: "Tạo tin nhắn thành công"});
+            await newMessage.populate("senderId", "_id username fullname avatar online_status");
+            res.status(200).json({success: true, message: "Tạo tin nhắn thành công", create_message: newMessage});
             
         } catch (error) {
             console.log(error);

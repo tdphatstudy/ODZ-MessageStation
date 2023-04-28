@@ -126,7 +126,6 @@ const GroupChatController = {
             console.log(error);
             res.status(500).json({success: false, message: "Interval server error!"})
         }
-
-    }
+    },
 }
 module.exports = GroupChatController;

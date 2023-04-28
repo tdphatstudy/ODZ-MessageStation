@@ -2,11 +2,13 @@ import "../../../assets/css/component/display-panel/personal-panel/personalpanel
 import ProfileNode from "../../profile-node/ProfileNode";
 import { useContext, useRef, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import {IpContext } from '../../../context/IpContext';
 import axios from "axios";
 
 
 const PersonalPanel = ({setMessage}) => {
     const authState = useContext(AuthContext);
+    const ipContext = useContext(IpContext);
     const avatarPersonalPanel = useRef(null);
     const fileInput = useRef(null);
     const [avatar, setAvatar] = useState(null);
@@ -50,7 +52,7 @@ const PersonalPanel = ({setMessage}) => {
         delete personalObj.avatar;
         setPersonalInfo(Object.entries(personalObj));
         // handle avatar
-        avatarPersonalPanel.current.style.backgroundImage = `url(http://localhost:3001/${authState.AuthState.username}/${authState.AuthState.avatar})`;
+        avatarPersonalPanel.current.style.backgroundImage = `url(http://${ipContext.IP}:3001/${authState.AuthState.username}/${authState.AuthState.avatar})`;
         const handleFileInputChange = async (event) => {
         const file = event.target.files[0];
         const type = file.type.split('/')[1];

@@ -136,7 +136,27 @@ const AuthController = {
             console.log(error);
             res.status(500).json({success: false, message: 'Internal server error'});
         } 
-    }, 
+    },
+    existToken: async(req, res, next) => {
+        try {
+            const token = req.cookies.auth_token;
+            if (!token) 
+                return res.status(200).json({success: true, message: 'NO_TOKEN'});
+            const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+            const existUser = await User.findOne({_id: decoded.userId, username: decoded.username});
+            if (!existUser)
+                return res.status(400).clearCookie('auth_token').json({success: false, message: 'Token có vấn đề vui lòng thử lại.'});
+            if (existUser.account_status === 'lock')
+                return res.status(400).json({success: false, message: 'LOCK'});    
+            if (existUser.account_status != 'active')
+                return res.status(200).json({success: true, message: 'UNACTIVITY'});
+            
+            res.status(200).json({sucess: true, message: "SUCCESS"});
+        } catch(error) {
+            console.log(error);
+            res.status(500).json({success: false, message: 'Internal server error'});
+        }
+    },
     me: async(req, res, next) => {
         try {
             const token = req.cookies.auth_token;
@@ -146,9 +166,6 @@ const AuthController = {
             const existUser = await User.findOne({_id: decoded.userId, username: decoded.username});
             if (!existUser)
                 return res.status(400).clearCookie('auth_token').json({success: false, message: 'Token có vấn đề vui lòng thử lại.'});
-            if (existUser.account_status != 'active')
-                return res.status(200).json({success: true, message: 'UNACTIVITY', user: existUser});
-            
             let user = existUser.toObject();
             delete user.created_at;
             delete user.update_at;
@@ -156,6 +173,10 @@ const AuthController = {
             delete user.password;
             delete user.old_passwords;
             delete user.auth_code;
+            if (existUser.account_status === 'lock')
+                return res.status(400).json({success: false, message: 'LOCK'});  
+            if (existUser.account_status != 'active')
+                return res.status(200).json({success: true, message: 'UNACTIVITY', user: user});
             res.status(200).json({sucess: true, message: "SUCCESS", user: user});
         }catch (error) {
             console.log(error);

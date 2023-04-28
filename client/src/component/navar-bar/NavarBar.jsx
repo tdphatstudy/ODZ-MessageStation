@@ -1,16 +1,17 @@
 import { useContext, useRef, useEffect } from "react";
 import "../../assets/css/component/navar-bar/navarbar.css";
+import {IpContext } from '../../context/IpContext';
 import { AuthContext } from "../../context/AuthContext";
 var ChangeModeIcon = require("../../assets/icon/change_24px_light.png");
-var UserTestData = require("../../text-data/user.png");
 
 
 
 const NavarBar = () => {
     const authState = useContext(AuthContext);
+    const ipContext = useContext(IpContext)
     const avatarNavarBar = useRef(null)
     useEffect(() => {
-        avatarNavarBar.current.style.backgroundImage = `url(http://localhost:3001/${authState.AuthState.username}/${authState.AuthState.avatar})`;
+        avatarNavarBar.current.style.backgroundImage = `url(http://${ipContext.IP}:3001/${authState.AuthState.username}/${authState.AuthState.avatar})`;
     }, [])
     return (
         <div>

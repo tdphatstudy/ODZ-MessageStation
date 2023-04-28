@@ -1,4 +1,5 @@
 import "../../assets/css/component/message-panel/messageitem.css"; 
+import DateHelper from '../../helper/DateHelper';
 
 const MessageItem = ({pronoun, name, content, time}) => {
     if (pronoun === "me") {
@@ -6,7 +7,7 @@ const MessageItem = ({pronoun, name, content, time}) => {
             <div className="message-item-me-pronoun-wrapper">
                 <div className="message-item-me-pronoun-name">{name}</div>
                 <div className="message-item-me-pronoun-content">{content}</div>
-                <div className="message-item-me-pronoun-time">{time}</div>
+                <div className="message-item-me-pronoun-time">{DateHelper.formatTime(time)}</div>
             </div>
         );
     } else if (pronoun ==="other") {
@@ -14,7 +15,7 @@ const MessageItem = ({pronoun, name, content, time}) => {
             <div className="message-item-other-pronoun-wrapper">
                 <div className="message-item-other-pronoun-name">{name}</div>
                 <div className="message-item-other-pronoun-content">{content}</div>
-                <div className="message-item-other-pronoun-time">{time}</div>
+                <div className="message-item-other-pronoun-time">{DateHelper.formatTime(time)}</div>
             </div>
             );
     } else {
