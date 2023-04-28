@@ -1,13 +1,15 @@
 import "../../../../assets/css/component/display-panel/home-panel/backgroundtemplate1.css";
 import { useContext, useRef, useEffect } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
+import {IpContext } from '../../../../context/IpContext';
 import DateHelper from "../../../../helper/DateHelper";
 
 const BackgroundTemplateOne = () => {
     const authState = useContext(AuthContext);
+    const ipContext = useContext(IpContext)
     const avatarHomePanel = useRef(null);
     useEffect(() => {
-        avatarHomePanel.current.style.backgroundImage = `url(http://localhost:3001/${authState.AuthState.username}/${authState.AuthState.avatar})`;
+        avatarHomePanel.current.style.backgroundImage = `url(http://${ipContext.IP}:3001/${authState.AuthState.username}/${authState.AuthState.avatar})`;
     }, [])
     return (
         <div className="background-template-1-wrapper">

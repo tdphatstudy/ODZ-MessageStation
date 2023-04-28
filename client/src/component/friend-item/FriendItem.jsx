@@ -3,14 +3,16 @@ import { useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import {IpContext } from '../../context/IpContext';
 
 
 const FriendItem = ({item, setSelectGroup}) => {
     const navigate = useNavigate();
     const authState = useContext(AuthContext);
+    const ipContext = useContext(IpContext);
     const avatarFriendList = useRef(null);
     useEffect(()=>{
-        avatarFriendList.current.style.backgroundImage = `url(http://localhost:3001/${item.friend.username}/${item.avatar})`;
+        avatarFriendList.current.style.backgroundImage = `url(http://${ipContext.IP}:3001/${item.friend.username}/${item.avatar})`;
     },[])
     return (
         <div className="friend-item-wrapper" onClick={()=>{setSelectGroup(item)}}>

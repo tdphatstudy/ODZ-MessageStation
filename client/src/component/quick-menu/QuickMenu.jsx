@@ -1,12 +1,15 @@
 import "../../assets/css/component/quick-menu/quickmenu.css";
 import { useContext, useRef, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import {IpContext } from '../../context/IpContext.js';
+
 
 const QuickMenu = ({callback, setMessage}) => {
     const authState = useContext(AuthContext);
+    const ipContext = useContext(IpContext);
     const avatarQuickMenu = useRef(null);
     useEffect(() => {
-        avatarQuickMenu.current.style.backgroundImage = `url(http://localhost:3001/${authState.AuthState.username}/${authState.AuthState.avatar})`;
+        avatarQuickMenu.current.style.backgroundImage = `url(http://${ipContext.IP}:3001/${authState.AuthState.username}/${authState.AuthState.avatar})`;
     }, [])
     return (
         <div className="quick-menu-wrapper-profile">

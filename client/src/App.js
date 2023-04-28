@@ -12,6 +12,8 @@ import ForgetPassword from './page/login/ForgetPassword';
 import { useContext, useEffect, useState, lazy, Suspense }  from 'react';
 import axios from 'axios';
 import { AuthContext } from './context/AuthContext'; 
+import socket from './socket.js'
+
 
 
 function App() {
@@ -39,8 +41,6 @@ function App() {
   
   useEffect(()=>{
     const LoadAuth = async () => {
-     
-      if (isLogin === 'UN_LOGIN') {
         try {
           
         const res = await axios.get('/auth/me');
@@ -64,7 +64,6 @@ function App() {
         localStorage.setItem('user', 'null');
       }
       }
-    }
     if (authContext.AuthState === null) {
       setIsLogin('UN_LOGIN');
     } else if (authContext.AuthState.account_status === 'unactivity') {
@@ -75,7 +74,36 @@ function App() {
     authContext.setAuth(JSON.parse(localStorage.getItem('user')));
     LoadAuth();
 
-  }, [])
+  }, []);
+  useEffect(() => {
+    const getIdGroups = async() => {
+      try {
+        const [relationshipGroups, publicGroups] = await Promise.all([
+          axios.get(`/groupchat/relationshipGroups/${authContext.AuthState._id}`),
+          axios.get(`/groupchat/publicGroups/${authContext.AuthState._id}`)
+        ]);
+        const idRelationshipGroups = relationshipGroups.data.groups.map((value) => {return value._id})
+        const idPublicpGroups = publicGroups.data.groups.map((value) => {return value._id})
+        const idGroups = idRelationshipGroups.concat(idPublicpGroups);
+        return idGroups;
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }
+    
+    if (isLogin === 'LOGIN') {
+      getIdGroups().then((idGroups) => {
+        socket.emit('join group', idGroups);
+      }).catch((error) => {
+        console.log(error);
+      });
+      
+      
+      
+    }
+  }, []);
+
  
 
 
