@@ -24,13 +24,13 @@
     cursor: pointer;
 }
 .message-control-chat-box {
-    background-image: url("../../../icon/group_message_48px.png");
+    background: url("../../../icon/group_message_48px.png");
 }
 .message-control-relationship {
-    background-image: url("../../../icon/relationship_48px_white.png");
+    background: url("../../../icon/relationship_48px_white.png");
 }
 .message-control-device-manager {
-    background-image: url("../../../icon/multiple_devices_48px.png");
+    background: url("../../../icon/multiple_devices_48px.png");
 }
 .message-control-relationship-panel {
     width: 100%;

@@ -1,7 +1,7 @@
 import { createContext, useState} from "react";
 
 
-let INIT_VALUE = 'localhost';
+let INIT_VALUE = '192.168.1.99';
 
 const IpContext = createContext();
 const IpProvider = ({children}) => {
