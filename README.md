@@ -50,3 +50,19 @@ Chúng tôi phát triển phần mềm dựa trên các thư viện, ngôn ngữ
   `npm install`
   - Bước 5: Chạy dự án.
   `npm start`
+ ## Một vài tính năng
+ ### Đăng nhập
+ ![image](https://github.com/tdphatstudy/ODZ-MessageStation/assets/124871402/bb32650f-f10e-411f-a2cd-7c3b5cb72bae)
+### Quên mật khẩu
+![image](https://github.com/tdphatstudy/ODZ-MessageStation/assets/124871402/bdd3288e-553c-4518-8802-0be3bb32c0e3)
+### Đăng ký
+![image](https://github.com/tdphatstudy/ODZ-MessageStation/assets/124871402/709be314-724e-4c4e-845a-a8a93ff8189d)
+
+### Gửi mail xác nhận và quên mật khẩu
+![image](https://github.com/tdphatstudy/ODZ-MessageStation/assets/124871402/8066100b-abe4-48b9-9391-f29dca87d001)
+### Profile
+![image](https://github.com/tdphatstudy/ODZ-MessageStation/assets/124871402/61177563-ed5e-4f53-a816-ee8d2f094186)
+
+### Chat
+![image](https://github.com/tdphatstudy/ODZ-MessageStation/assets/124871402/55b5604b-923e-403c-90c8-ed279d9bd993)
+
