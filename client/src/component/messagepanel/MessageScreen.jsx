@@ -9,11 +9,17 @@ import socket from '../../socket.js';
 
 const MessageScreen = ({selectGroup, setMessage}) => {
     const [messageList, setMessageList] = useState([]);
+    const messageListRef = useRef([]);
     const [page, setPage] = useState(0);
     const authState = useContext(AuthContext);
     const ipContext = useContext(IpContext)
     const avatarChatGroup = useRef(null);
     const [mess, setMess] = useState('');
+    const [test, setTest] = useState('Hello');
+    function addMessage(newMessage) {
+        setMessageList([newMessage, ...messageList]);
+    }
+
 
     useEffect(()=> {
         if (selectGroup !== null)
@@ -45,21 +51,30 @@ const MessageScreen = ({selectGroup, setMessage}) => {
         }
         if (selectGroup !== null) {
             loadMessage();
+            
+        }
+        
+    },[page, selectGroup]);
+    useEffect(()=> {
+        if (selectGroup !== null) {
             socket.on('receive message', (data) => {
                 const receiveMessage = {pronoun: 'other', message: data};
-                setMessageList([receiveMessage, ...messageList]);
+                addMessage(receiveMessage);
             })
         }
-    },[page, selectGroup])
+    })
     const handleEnter = async(event) => {
+        
         if (event.keyCode === 13) { // 13 is Enter key code
           try {
+            setTest('Hello1');
+            console.log(test);
             const data = {senderId: authState.AuthState._id, revGroupId: selectGroup._id, text: mess, attachments: []};
             setMess('');
             const res = await axios.post('/message/create', data);
             if (res.data.success === true) {
                 const itemMessage = {pronoun: 'me', message: res.data.create_message};
-                setMessageList([itemMessage, ...messageList]);
+                addMessage(itemMessage);
                 socket.emit('send message', res.data.create_message);
             }
             
