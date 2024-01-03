@@ -5,7 +5,7 @@ Hệ thống website dùng để nhắn tin và gọi điện video call, ngoài
 ## Hệ điều hành hỗ trợ.
 | Hệ Điều Hành | Windows    | Linux   | MacOS|
 | :---:   | :---: | :---: | :---: |
-| Hỗ trợ | ✔️  | ✔️   |  ✔️ |
+| Hỗ trợ | ✔️  | ✔️   |  x |
 ## Nền tảng phát triển
 Việc phát triển hoặc build với các phiên bản khác có thể gây ra lỗi.
 Chúng tôi phát triển phần mềm dựa trên các thư viện, ngôn ngữ với phiên bản sau đây:
