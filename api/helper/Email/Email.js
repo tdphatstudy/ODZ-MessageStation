@@ -5,8 +5,8 @@ const EmailTemplate = require('./EmailTemplate.js');
 let transporterGmail = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'developer.opendevzone@gmail.com',
-      pass: 'REMOVED_REVOKED_SECRET'
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_APP_PASSWORD
     }
   });
 
